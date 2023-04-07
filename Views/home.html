@@ -8,7 +8,7 @@
     <title>Inicio</title>
 </head>
 <body>
-    <nav style="background-color: 	#011f4b;">
+    <nav class="sticky top-0 z-50" style="background-color: 	#011f4b;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16" style="display: flex;justify-content: center;">
                 <div class="flex-shrink-0 flex items-center">
@@ -18,10 +18,25 @@
         </div>
     </nav>
 
-    <div class="flex-1 flex justify-center items-start h-screen py-10   " style="background-color: #005b96;">
-        <div class="bg-white p-5 rounded-lg text-secondary shadow-lg" style="width: 70rem; height: 40rem;"></div>
+    <div class="flex-1 flex justify-center items-start h-screen py-7   " style="background-color: #005b96;">
+        <div class="bg-white p-5 rounded-lg text-secondary shadow-lg" style="width: 67rem; height: 35rem;">
+            <h1 class="text-3xl font-semibold mb-4">Bienvenido!</h1>
+            <div class="flex justify-center mb-6">
+                <button id="crearPartidaBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg mb-4">Crear un Partida</button>
+            </div>  
+
+            <h2 class="text-xl font-semibold mb-2">Unirse a una Partida</h2>
+
+            <div id="contenedorPartidas" class="bg-stone-200 p-5 rounded-lg text-secondary shadow-lg overflow-auto" style="height:20rem;">
+                
+
+
+            </div>
+
+            
+        </div>
     </div>
     
-    
+<script src="..\Scripts\home.js"></script>   
 </body>
 </html>
