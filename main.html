@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer src="scoreboard.js"></script>
+    <script type="module" src="chatgpt.js"></script>
+    <script type="module" src="bingchat.js"></script>
+    <title>My Page</title>
+  </head>
+  <body>
+    <div class="flex h-screen justify-center items-center">
+      <div class="flex-auto w-18 px-2" id="scoreboard">
+        <div
+          class="mx-auto my-2 max-w-md rounded overflow-hidden shadow-md text-xs"
+        >
+          <div class="flex bg-gray-200 px-2 py-2">
+            <div class="w-5/12 text-gray-700 text-left text-red-700">
+              Players
+            </div>
+            <div class="w-5/12 flex justify-end items-center">
+              <p class="w-7/12 px-2 text-center">Errors</p>
+              <p class="w-7/12 px-2 text-center">Disqualified</p>
+            </div>
+            <div class="w-1/6 text-gray-700 text-right">Puntaje</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-auto w-64 px-2">Game</div>
+      <div class="flex-auto w-18 px-2">
+        Help
+        <div class="grid grid-rows-4 grid-flow-col gap-4">
+          <div id="chatgpt">ChatGPT</div>
+          <div id="bingchat">Bing Chat</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
