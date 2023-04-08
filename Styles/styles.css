@@ -1,0 +1,21 @@
+nav{
+    background-color: #011f4b;
+}
+
+
+#fondoHome, #fondoCrearPartida{
+    background-color: #005b96;
+}
+
+#contenedorHome, #contenedorCrearPartida{
+    width: 67rem;
+    height: 35rem;
+}
+
+#contenedorPartidas{
+    height: 22rem;
+}
+
+#divNombreNuevaPartida{
+    width: 33rem;
+}

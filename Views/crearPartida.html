@@ -5,40 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../Styles/styles.css">
     <title>Crear Partida</title>
 </head>
 <body>
-    <nav class="sticky top-0 z-50" style="background-color: 	#011f4b;">
+    <nav class="sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16" style="display: flex;justify-content: center;">
+            <div class="flex justify-center h-16">
                 <div class="flex-shrink-0 flex items-center">
-                    <h1 class="text-white text-lg font-bold" style="font-size: xx-large;">Movie Trivia</h1>
+                    <h1 class="text-white text-3xl font-bold">Movie Trivia</h1>
                 </div>
             </div>
         </div>
     </nav>
     
-    <div class="flex-1 flex justify-center items-start h-screen py-7   " style="background-color: #005b96;">
-        <div class="bg-white p-5 rounded-lg text-secondary shadow-lg" style="width: 67rem; height: 35rem;">
+    <div id="fondoCrearPartida" class="flex-1 flex justify-center items-start h-screen py-7">
+        <div id="contenedorCrearPartida" class="bg-white p-5 rounded-lg text-secondary shadow-lg">
             <h1 class="text-3xl font-semibold mb-4 flex justify-center">Crear una Nueva Partida</h1>
             <form class="flex flex-col items-center">
-                <div class="mb-4 mt-9" style="width: 33rem;">   
+                <div id="divNombreNuevaPartida" class="mb-4 mt-9">   
                     <label for="nombrePartida" class="block text-gray-700 font-bold mb-2 text-center">Nombre de la Partida</label>
                     <input type="text" id="nombrePartida" placeholder="Ingrese Nombre"
-                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline">
                 </div>
             
                 <div class="mb-4 w-full flex justify-center mt-6">
-                    <div class="mr-6">
-                        <label for="tiempoPregunta" class="block text-gray-700 font-bold mb-2">Tiempo de Pregunta (segundos)</label>
-                        <input type="number" id="tiempoPregunta" placeholder="Ingrese Tiempo"
-                            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <div class="mr-9">
+                        <label for="tiempoPregunta" class="block text-gray-700 font-bold mb-2">Tiempo de Pregunta</label>
+                        <select id="tiempoPregunta" class="border-solid border-2 py-2 px-6 rounded border-slate-200">
+                            <option value=0 disabled selected>Seleccione un Tiempo</option>
+                            <option value=60>60s</option>
+                            <option value=90>90s</option>
+                            <option value=120>120s</option>
+                        </select>
                     </div>
             
-                    <div class="ml-6">
-                        <label for="tiempoRespuesta" class="block text-gray-700 font-bold mb-2">Tiempo de Respuesta (segundos)</label>
-                        <input type="number" id="tiempoRespuesta" placeholder="Ingrese Tiempo"
-                            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <div class="ml-9">
+                        <label for="tiempoRespuesta" class="block text-gray-700 font-bold mb-2">Tiempo de Respuesta</label>
+                        <select id="tiempoRespuesta"class="border-solid border-2 py-2 px-6 rounded border-slate-200">
+                            <option value=0 disabled selected>Seleccione un Tiempo</option>
+                            <option value=60>60s</option>
+                            <option value=90>90s</option>
+                            <option value=120>120s</option>
+                        </select>
                     </div>
                 </div>
             
