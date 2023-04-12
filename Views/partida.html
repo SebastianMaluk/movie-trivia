@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../Styles/styles.css">
+    <title>Partida</title>
+</head>
+<body>
+    <nav class="sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-white text-3xl font-bold">Movie Trivia</h1>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="fondoPartida" class="flex-1 flex justify-center items-start h-screen py-7">
+        <div id="usuariosContainer" class="mr-6">
+            <div id="preguntonContainer" class="bg-white p-5 rounded-lg text-secondary shadow-lg">
+                <h3 class="text-red-500 text-xl font-bold">Preguntón</h3>
+                <div class="bg-white p-5 rounded-lg text-secondary shadow-lg border-solid border-2 border-red-500 mt-3 text-center font-bold">Nombre de Usuario</div>
+            </div>
+            <div id="participantesContainer" class="bg-white p-5 rounded-lg text-secondary shadow-lg mt-5">
+                <h3 class="text-blue-600 text-xl font-bold">Participantes</h3>
+                <div id="bordeParticipantes" class="bg-white p-5 rounded-lg text-secondary shadow-lg border-solid border-2 border-blue-600 mt-3 text-center font-bold overflow-auto">
+
+                </div>
+            </div>
+        </div>
+        <div id="partidaContainer" class="bg-white p-5 rounded-lg text-secondary shadow-lg">
+            
+        </div>  
+    </div>
+
+<script src="..\Scripts\partida.js"></script>
+</body>
+</html>

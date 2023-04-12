@@ -10,7 +10,7 @@ window.onload = function onInitialized() {
 
   var unirmeBtn = document.getElementById("unirmeBtn");
   unirmeBtn.onclick = function () {
-    location.href = "main.html";
+    location.href = "partida.html";
   };
 };
 

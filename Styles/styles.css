@@ -3,19 +3,46 @@ nav{
 }
 
 
-#fondoHome, #fondoCrearPartida{
+#fondoHome, #fondoCrearPartida, #fondoPartida{
     background-color: #005b96;
 }
 
-#contenedorHome, #contenedorCrearPartida{
+#contenedorHome{
+    width: 67rem;
+    height: 45rem;
+}
+ 
+#contenedorCrearPartida{
     width: 67rem;
     height: 35rem;
 }
 
 #contenedorPartidas{
-    height: 22rem;
+    height: 32rem;
 }
 
 #divNombreNuevaPartida{
     width: 33rem;
 }
+
+#usuariosContainer {
+    width: 25rem;
+}
+
+#partidaContainer {
+    width: 45rem;
+    height: 48rem;
+}
+
+#participantesContainer {
+    height: 37.8rem;
+}
+
+#preguntonContainer {
+    height: 9rem;
+}
+
+#bordeParticipantes{
+    height: 32rem;
+}
+
