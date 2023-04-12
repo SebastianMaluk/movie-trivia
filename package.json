@@ -3,5 +3,8 @@
     "bing-chat": "^0.2.3",
     "openai": "^3.2.1"
   },
-  "type":"module"
+  "type": "module",
+  "devDependencies": {
+    "tailwindcss": "^3.3.1"
+  }
 }
