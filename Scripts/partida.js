@@ -26,14 +26,14 @@ const respuestaCorrectaInput = document.getElementById(
 );
 const enviarRespuestaBtn = document.getElementById("enviarRespuestaBtn");
 
-window.onload = function onInitialized() {
+window.addEventListener("load",function () {
   addParticipantes();
 
   textoPregunta.innerHTML =
     "Tú eres el Preguntón, ingresa tu pregunta para que inicie la ronda";
   textoRespuesta.innerHTML =
     "Para validar, envía la respuesta correcta a tu pregunta";
-};
+});
 
 function addParticipantes() {
   const container = document.getElementById("bordeParticipantes");
