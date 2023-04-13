@@ -50,3 +50,11 @@ nav{
     height: 32rem;
 }
 
+
+.blur {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: backdrop-filter 0.3s ease-in-out;
+    -webkit-transition: backdrop-filter 0.3s ease-in-out;
+}
+
