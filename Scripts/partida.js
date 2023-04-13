@@ -8,7 +8,7 @@ const cerrarModalPreguntaBtn = document.getElementById(
 const abrirModalPreguntaBtn = document.getElementById("abrirModalPreguntaBtn");
 const textoPregunta = document.getElementById("textoPregunta");
 
-const respuestaPreguntonInput = document.getElementById("preguntaInput");
+const preguntaPreguntonInput = document.getElementById("preguntaInput");
 const enviarPreguntaBtn = document.getElementById("enviarPreguntaBtn");
 
 // Modal Respuesta
@@ -21,7 +21,9 @@ const abrirModalRespuestaBtn = document.getElementById(
 );
 const textoRespuesta = document.getElementById("textoRespuesta");
 
-const respuestaParticipanteInput = document.getElementById("respuestaInput");
+const respuestaCorrectaInput = document.getElementById(
+  "respuestaCorrectaInput"
+);
 const enviarRespuestaBtn = document.getElementById("enviarRespuestaBtn");
 
 window.onload = function onInitialized() {
@@ -42,7 +44,7 @@ function addParticipantes() {
   for (let i = 0; i < names.length; i++) {
     let row_container = document.createElement("div");
     row_container.className =
-      "mx-auto my-2 rounded shadow-md text-xs text-gray-500";
+      "mx-auto my-2 rounded shadow-md text-xs main-color";
     container.appendChild(row_container);
     let row = document.createElement("div");
     row.className = "flex px-2 py-2 items-start";
@@ -102,7 +104,7 @@ cerrarModalPreguntaBtn.onclick = function () {
 
 enviarPreguntaBtn.onclick = function (event) {
   event.preventDefault();
-  var pregunta = respuestaPreguntonInput.value;
+  var pregunta = preguntaPreguntonInput.value;
   textoPregunta.innerHTML = pregunta;
   abrirModalPreguntaBtn.classList.add("hidden");
   preguntaModal.classList.add("hidden");
@@ -121,7 +123,7 @@ cerrarModalRespuestaBtn.onclick = function () {
 
 enviarRespuestaBtn.onclick = function (event) {
   event.preventDefault();
-  var respuesta = respuestaPreguntonInput.value;
+  var respuesta = respuestaCorrectaInput.value;
   textoRespuesta.innerHTML = respuesta;
   abrirModalRespuestaBtn.classList.add("hidden");
   respuestaModal.classList.add("hidden");

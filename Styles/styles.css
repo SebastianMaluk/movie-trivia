@@ -68,3 +68,7 @@ nav{
 .main-color{
     color: #011f4b
 }
+
+.main-border {
+    border-color: #011f4b;
+}
