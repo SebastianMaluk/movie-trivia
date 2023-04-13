@@ -3,3 +3,4 @@
 .dotenv
 node_modules/*
 .vscode/*
+test/*
