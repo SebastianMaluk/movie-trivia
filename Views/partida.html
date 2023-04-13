@@ -151,6 +151,9 @@
         id="gameContainer"
         class="bg-white p-5 rounded-lg text-secondary shadow-lg"
       >
+        <div class="main-color font-bold text-center text-3xl mb-2">
+            Tiempo Restante: <span id="tiempoRestante">60</span>s
+        </div>
         <div class="bg-gray-500 p-5 rounded-lg text-secondary shadow-lg mb-5">
           <h3 class="text-white text-lg font-bold mb-1">Pregunta:</h3>
           <p id="textoPregunta" class="text-white text-lg text-center"></p>
@@ -178,63 +181,6 @@
 
         <h3 class="main-color text-2xl font-bold mt-3 mb-1">Respuestas</h3>
         <div id="responsesContainer" class="bg-white p-5 rounded-lg text-secondary shadow-lg border-solid border-2 main-border overflow-auto">
-            <div class="bg-white p-5 rounded-lg text-secondary shadow-lg mb-2">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <p class="font-bold text-xl">Javier</p>
-                        <p>Respuesta de Javier</p>
-                    </div>
-                    <div class="flex justify-end">
-                        <button><img src="../imgs/good-answer.svg"></img></button>
-                        <button><img src="../imgs/medium-answer.svg"></img></button>
-                        <button><img src="../imgs/bad-answer.svg"></img></button>
-                       
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-lg text-secondary shadow-lg mb-2">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <p class="font-bold text-xl">Matias</p>
-                        <p>Respuesta de Matias</p>
-                    </div>
-                    <div class="flex justify-end">
-                        <button></button>
-                        <button></button>
-                        <button></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-lg text-secondary shadow-lg mb-2">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <p class="font-bold text-xl">Claudio</p>
-                        <p>Respuesta de Claudio</p>
-                    </div>
-                    <div class="flex justify-end">
-                        <button></button>
-                        <button></button>
-                        <button></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-lg text-secondary shadow-lg mb-2">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <p class="font-bold text-xl">Rafael</p>
-                        <p>Respuesta de Rafael</p>
-                    </div>
-                    <div class="flex justify-end">
-                        <button></button>
-                        <button></button>
-                        <button></button>
-                    </div>
-                </div>
-            </div>
-
         </div>
       </div>
       <div
@@ -271,5 +217,6 @@
     </div>
 
     <script src="..\Scripts\partida.js"></script>
+    <script src="..\Scripts\respuestas.js"></script>
   </body>
 </html>
