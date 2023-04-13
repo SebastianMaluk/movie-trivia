@@ -32,25 +32,25 @@ nav{
     width: 33rem;
 }
 
-#usuariosContainer {
-    width: 25rem;
+#leftContainer {
+    width: 28rem;
 }
 
-#partidaContainer {
+#gameContainer {
     width: 45rem;
     height: 48rem;
 }
 
-#participantesContainer {
-    height: 37.8rem;
+#playersContainer {
+    height: 34.8rem;
 }
 
-#preguntonContainer {
-    height: 9rem;
+#dataContainer {
+    height: 12rem;
 }
 
 #bordeParticipantes{
-    height: 32rem;
+    height: 29rem;
 }
 
 
