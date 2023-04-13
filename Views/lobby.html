@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../Styles/styles.css">
+    <title>Lobby</title>
+</head>
+<body>
+    <nav class="sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-white text-3xl font-bold">Movie Trivia</h1>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="flex-1 flex justify-center items-start h-screen py-7">
+            <div id="contenedorLobby" class="bg-white p-5 rounded-lg text-secondary shadow-lg">
+                <h1 class="text-3xl font-semibold mb-4">Lobby</h1>
+                <div class="flex flex-col items-center">
+                    <label for="cantidadRondas" class="block text-gray-700 font-bold mb-2 text-center">Número de Rondas</label>
+                    <input type="number" id="cantidadRondas" placeholder="Ingrese un número"
+                        class="appearance-none border rounded py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline">
+                    
+                    <div class="w-full flex justify-center mt-6 align-center">
+                        <a href="partida.html"
+                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Empezar
+                            Partida</a>
+                        <a href="home.html"
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline ml-2">Cancelar
+                            Partida</a>
+                    </div>
+                    
+                </div>
+        
+                <h2 class="text-xl font-semibold mb-2">Participantes Conectados</h2>
+        
+                <div id="contenedorUsuariosLobby" class="bg-stone-200 p-5 rounded-lg text-secondary shadow-lg overflow-auto">
+        
+                    <div class="bg-white p-5 rounded-lg text-secondary shadow-lg mb-2">
+                        <div class="flex justify-center">
+                            <div class="col-span-1 text-left">
+                                <p class="font-bold text-xl">Usuario X</p>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+        
+        
+            </div>
+    </div>
+    
+</body>
+</html>

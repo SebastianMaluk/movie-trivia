@@ -2,16 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    background-color: #005b96;
+}
+
 nav{
     background-color: #011f4b;
 }
 
-
-#fondoHome, #fondoCrearPartida, #fondoPartida{
-    background-color: #005b96;
-}
-
-#contenedorHome{
+#contenedorHome, #contenedorLobby{
     width: 67rem;
     height: 45rem;
 }
@@ -23,6 +22,10 @@ nav{
 
 #contenedorPartidas{
     height: 32rem;
+}
+
+#contenedorUsuariosLobby{
+    height: 28rem;
 }
 
 #divNombreNuevaPartida{
