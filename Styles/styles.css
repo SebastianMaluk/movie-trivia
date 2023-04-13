@@ -53,6 +53,10 @@ nav{
     height: 29rem;
 }
 
+#responsesContainer {
+    height: 24rem;
+}
+
 
 .blur {
     backdrop-filter: blur(4px);
