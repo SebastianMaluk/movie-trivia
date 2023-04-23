@@ -5,7 +5,9 @@ crearPartidaBtn.onclick = function () {
   location.href = "crearPartida.html";
 };
 
-window.onload = function onInitialized() {
+window.onload = async function onInitialized() {
+  console.log(localStorage["accessToken"]);
+
   getPartidas();
 
   var unirmeBtn = document.getElementById("unirmeBtn");

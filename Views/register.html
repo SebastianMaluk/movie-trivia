@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../Styles/styles.css">
+    <title>Crear una cuenta</title>
+</head>
+<body>
+    <div class="flex-1 flex justify-center items-start h-screen py-20">
+        <div class="bg-white p-5 rounded-lg text-secondary shadow-lg">
+            <h1 class=" flex justify-center text-3xl font-semibold mb-9">Regístrate</h1>
+
+    
+            <div class="flex flex-col">
+                <label for="usernameInputR">Nombre de Usuario</label>
+                <input type="text" name="username" id="usernameInputR"
+                    class="appearance-none border rounded w-80 py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline">
+    
+                <label class="mt-3" for="passwordInputR">Contraseña</label>
+                <input type="text" name="password" id="passwordInputR"
+                    class="appearance-none border rounded w-80 py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline">
+                <p>*La contraseña debe tener al menos 6 caracteres</p>
+
+                <label class="mt-3" for="passwordConfirmInputR">Confirmar Contraseña</label>
+                <input type="text" name="password" id="passwordConfirmInputR"
+                    class="appearance-none border rounded w-80 py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline">
+    
+                <button id="registerBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg mt-4">Registrarme</button>
+    
+                <p class="mt-6 mb-6">Ya tienes una cuenta? <a class="underline text-blue-500"
+                        href="login.html">Volver a Iniciar Sesión</a></p>
+            </div>
+    
+    
+    
+        </div>
+    
+    
+    </div>
+    </div>
+
+<script src="../scripts/register.js"></script>
+</body>
+</html>
