@@ -18,7 +18,7 @@ function getPartidas() {
     url: "https://trivia-bck.herokuapp.com/api/games/",
     args: {
       headers: {
-        authorization: "Bearer " + localStorage.getItem("accessToken"),
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     },
   };
@@ -89,7 +89,7 @@ function getPartidas() {
               args: {
                 method: "POST",
                 headers: {
-                  authorization:
+                  Authorization:
                     "Bearer " + localStorage.getItem("accessToken"),
                 },
               },
