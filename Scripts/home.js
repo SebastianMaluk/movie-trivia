@@ -1,3 +1,5 @@
+import { customFetch } from "./fetch.js";
+
 var crearPartidaBtn = document.getElementById("crearPartidaBtn");
 var contenedorPartidas = document.getElementById("contenedorPartidas");
 
@@ -12,24 +14,25 @@ window.onload = async function onInitialized() {
 };
 
 function getPartidas() {
-  // TODO: get auth
-  fetch("https://trivia-bck.herokuapp.com/api/games/", {
-    headers: {
-      authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgyMzE4MTU3LCJpYXQiOjE2ODIzMTc4NTcsImp0aSI6ImUxY2ExN2VkMzRlMDRhMzM5MzMxYmIwNWFmZTg4YzQzIiwidXNlcl9pZCI6MTA2fQ.RTo8YMpmP2yUwPqyuGtlzM9T1w4D2oDhlJBKvPwPZQ0",
+  const games = {
+    url: "https://trivia-bck.herokuapp.com/api/games/",
+    args: {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
     },
-  })
+  };
+  customFetch(games.url, games.args)
     .then((response) => response.json())
     .then((partidas) => {
-      console.log(JSON.stringify(partidas));
       partidas.forEach((game) => {
-        console.log(`game.creator.username: ${game.creator.username}`);
-        console.log(`game.players: ${game.players}`);
-        console.log(`game.question_time: ${game.question_time}`);
-        console.log(`game.answer_time ${game.answer_time}`);
-        console.log(`game.rounds_number ${game.rounds_number}`);
-        console.log(`game.started: ${game.started}`);
-        console.log(`game.ended ${game.ended}`);
+        // console.log(`game.creator.username: ${game.creator.username}`);
+        // console.log(`game.players: ${game.players}`);
+        // console.log(`game.question_time: ${game.question_time}`);
+        // console.log(`game.answer_time ${game.answer_time}`);
+        // console.log(`game.rounds_number ${game.rounds_number}`);
+        // console.log(`game.started: ${game.started}`);
+        // console.log(`game.ended ${game.ended}`);
         if (!game.started && !game.ended) {
           // create parent div element
           const parentDiv = document.createElement("div");
@@ -80,8 +83,24 @@ function getPartidas() {
 
           // create child button element for the fifth column
           const buttonElement = document.createElement("button");
-          buttonElement.onclick = function () {
-            location.href = "lobby.html";
+          buttonElement.onclick = () => {
+            const joinGame = {
+              url: `https://trivia-bck.herokuapp.com/api/games/${game.id}/join_game/`,
+              args: {
+                method: "POST",
+                headers: {
+                  authorization:
+                    "Bearer " + localStorage.getItem("accessToken"),
+                },
+              },
+            };
+            customFetch(joinGame.url, joinGame.args)
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Success:", data);
+                location.href = "lobby.html";
+              })
+              .catch((error) => console.error("Error:", error));
           };
           buttonElement.id = "unirmeBtn-" + game.id;
           buttonElement.className =
@@ -107,5 +126,8 @@ function getPartidas() {
           container.appendChild(parentDiv);
         }
       });
+    })
+    .catch((error) => {
+      console.error("Error fetching games:", error);
     });
 }
