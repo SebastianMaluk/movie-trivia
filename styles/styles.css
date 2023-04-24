@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #005b96;
+}
+
+nav{
+    background-color: #011f4b;
+}
+
+#contenedorHome, #contenedorLobby{
+    width: 67rem;
+    height: 45rem;
+}
+ 
+#contenedorCrearPartida{
+    width: 67rem;
+    height: 35rem;
+}
+
+#contenedorPartidas{
+    height: 32rem;
+}
+
+#contenedorUsuariosLobby{
+    height: 28rem;
+}
+
+#divNombreNuevaPartida{
+    width: 33rem;
+}
+
+#leftContainer {
+    width: 28rem;
+}
+
+#gameContainer {
+    width: 45rem;
+    height: 48rem;
+}
+
+#playersContainer {
+    height: 34.8rem;
+}
+
+#dataContainer {
+    height: 12rem;
+}
+
+#bordeParticipantes{
+    height: 29rem;
+}
+
+#responsesContainer {
+    height: 20rem;
+}
+
+
+.blur {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: backdrop-filter 0.3s ease-in-out;
+    -webkit-transition: backdrop-filter 0.3s ease-in-out;
+}
+
+.main-color{
+    color: #011f4b
+}
+
+.main-border {
+    border-color: #011f4b;
+}

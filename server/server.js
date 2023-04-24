@@ -1,6 +1,6 @@
 import { createServer } from "http";
-import { BingChatAsk } from "../Scripts/bingchat.js";
-import { ChatGPTAsk } from "../Scripts/chatgpt.js";
+import { BingChatAsk } from "../scripts/bingchat.js";
+import { ChatGPTAsk } from "../scripts/chatgpt.js";
 import dotenv from "dotenv";
 dotenv.config();
 
