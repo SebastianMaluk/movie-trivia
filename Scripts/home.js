@@ -1,15 +1,13 @@
 import { customFetch } from "./fetch.js";
 
-var crearPartidaBtn = document.getElementById("crearPartidaBtn");
+var crearPartidaBtnFromHome = document.getElementById("crearPartidaBtnFromHome");
 var contenedorPartidas = document.getElementById("contenedorPartidas");
 
-crearPartidaBtn.onclick = function () {
-  location.href = "crearPartida.html";
+crearPartidaBtnFromHome.onclick = function () {
+    location.href = "crearPartida.html";
 };
 
 window.onload = async function onInitialized() {
-  console.log(localStorage["accessToken"]);
-
   getPartidas();
 };
 
@@ -98,7 +96,7 @@ function getPartidas() {
               .then((response) => response.json())
               .then((data) => {
                 console.log("Success:", data);
-                location.href = "lobby.html";
+                location.href = "lobby.html?game_id=" + game.id;
               })
               .catch((error) => console.error("Error:", error));
           };
