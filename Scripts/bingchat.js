@@ -1,24 +1,11 @@
-import { BingChat } from "bing-chat";
+import { BingChat } from "../node_modules/bing-chat/build/index.js";
 
-async function example(message) {
-	const api = new BingChat({
-		cookie:
-		"",
-	});
-
-	const res = await api.sendMessage(
-		message,
-		{variant: 'Precise'
-	});
-  	res.text = res.text.replace(/\[\^.*?\^\]/g, ""); // clean [^num^] tags
-	res.text = res.text.replace(/(\s+)(\.|,)/g, "$2"); // clean spaces before . and ,
-	return res.text;
+export async function BingChatAsk(message) {
+    const api = new BingChat({
+        cookie: process.env.BING_CHAT_COOKIE,
+      });
+  const res = await api.sendMessage(message, { variant: "Precise" });
+  res.text = res.text.replace(/\[\^.*?\^\]/g, ""); // clean [^num^] tags
+  res.text = res.text.replace(/(\s+)(\.|,)/g, "$2"); // clean spaces before . and ,
+  return res.text
 }
-
-div = document.getElementById("bingchat")
-div.innerHTML = "Loading..."
-message = "Hello"
-example(message).then(function (response) {
-    div.innerHTML = response;
-}
-);

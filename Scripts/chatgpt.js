@@ -1,35 +1,38 @@
 import { OpenAIApi, Configuration } from "openai";
 
 
-const configuration = new Configuration({
-    apiKey: "",
-  });
-
-async function ChatGPT(message) {
-    
+export async function ChatGPTAsk(message) {
+  try {
+    const configuration = new Configuration({
+        apiKey: process.env.OPENAI_API_KEY,
+      });
     const openai = new OpenAIApi(configuration);
     const response = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        temperature: 0.2,
-        messages: [
+      model: "gpt-3.5-turbo",
+      temperature: 0.2,
+      messages: [
         {
-            role: "system",
-            content: "You are a helpful assistant for a movie and tv shows trivia game"
+          role: "system",
+          content:
+            "Eres un ayudante en un juego de preguntas y respuestas sobre películas y series de televisión.",
         },
         {
-            role: "user",
-            content: message
+          role: "user",
+          content: message,
         },
-        ]
+      ],
     });
-
-    return response.data.choices[0].message.content;
+    return response
+  } catch (error) {
+    if (error.response && error.response.status === 429) {
+      // Handle rate limit error (we recommend using exponential backoff)
+      return error.response
+    } else if (error.request) {
+      // Handle connection error here
+      return error.response
+    } else {
+      // Handle API error here, e.g. retry or log
+      return error.response
+    }
+  }
 }
-
-div = document.getElementById("chatgpt")
-div.innerHTML = "Loading..."
-message = "Hello"
-ChatGPT(message).then(function (response) {
-    div.innerHTML = response;
-}
-);
