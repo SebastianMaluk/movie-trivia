@@ -1,5 +1,5 @@
 // Helper function to refresh the access token
-async function refreshAccessToken(refreshToken) {
+export async function refreshAccessToken(refreshToken) {
   try {
     const response = await fetch(
       "https://trivia-bck.herokuapp.com/api/token/refresh/",
@@ -21,6 +21,7 @@ async function refreshAccessToken(refreshToken) {
     const data = await response.json();
 
     console.log("ACCESS TOKEN REFRESHED");
+    localStorage.setItem("accessToken", data.access);
     return data.access;
   } catch (error) {
     console.error("Error refreshing access token:", error);
@@ -54,7 +55,6 @@ export async function customFetch(url, options = {}) {
 
     // If the token refresh is successful, update the access token and retry the request
     if (newAccessToken) {
-      localStorage.setItem("accessToken", newAccessToken);
       options.headers["Authorization"] = `Bearer ${newAccessToken}`;
       console.log("Access token refreshed, retrying the request...");
       return fetch(url, options);
