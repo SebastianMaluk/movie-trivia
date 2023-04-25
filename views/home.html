@@ -1,61 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/styles.css" />
     <title>Inicio</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center h-16">
-                <div class="flex-shrink-0 flex items-center">
-                    <h1 class="text-white text-3xl font-bold">Movie Trivia</h1>
-                </div>
-            </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-center h-16">
+          <div class="flex-shrink-0 flex items-center">
+            <h1 class="text-white text-3xl font-bold">Movie Trivia</h1>
+          </div>
         </div>
+      </div>
     </nav>
 
     <div class="flex-1 flex justify-center items-start h-screen py-7">
-        <div id="contenedorHome" class="bg-white p-5 rounded-lg text-secondary shadow-lg">
-            <h1 class="text-3xl font-semibold mb-4">Bienvenido!</h1>
-            <div class="flex justify-center mb-6">
-                <button id="crearPartidaBtnFromHome" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg mb-4">Crear un Partida</button>
-            </div>  
-
-            <h2 class="text-xl font-semibold mb-2">Unirse a una Partida</h2>
-            
-            <div id="contenedorPartidas" class="bg-stone-200 p-5 pt-0 rounded-lg text-secondary shadow-lg overflow-auto">
-                <div class="sticky top-0 bg-stone-300 p-5 rounded-sm text-secondary mb-2 z-0">
-                    <div class="grid grid-cols-5 gap-4">
-                        <div class="col-span-1 text-left">
-                            <p class="font-bold text-xl">Game Name</p>
-                        </div>
-                        <div class="col-span-1 flex items-center justify-center">
-                            <p class="font-bold text-xl">Players</p>
-                        </div>
-                        <div class="col-span-1 flex items-center justify-center">
-                            <p class="font-bold text-xl">Question Time</p>
-                        </div>
-                        <div class="col-span-1 flex items-center justify-center">
-                            <p class="font-bold text-xl">Answer Time</p>
-                        </div>
-                        <div class="col-span-1 text-right">
-                            <p class="font-bold text-xl">Join</p>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-            
+      <div
+        id="contenedorHome"
+        class="bg-white p-5 rounded-lg text-secondary shadow-lg"
+      >
+        <h1 class="text-3xl font-semibold mb-4">Bienvenido!</h1>
+        <div class="flex justify-center mb-6">
+          <button
+            id="crearPartidaBtnFromHome"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg mb-4"
+          >
+            Crear un Partida
+          </button>
         </div>
+        <button
+          id="mostrarPartidasParaUnirseBtn"
+          class="bg-stone-500 hover:bg-stone-600 text-white px-4 py-2 rounded-t-lg"
+        >
+          Unirse a una Partida
+        </button>
+        <button
+          id="mostrarPartidasCreadasBtn"
+          class="bg-stone-500 hover:bg-stone-600 text-white px-4 py-2 rounded-t-lg"
+        >
+          Partidas Creadas
+        </button>
+        <div
+          id="contenedorPartidas"
+          class="bg-stone-200 pt-0 rounded-lg text-secondary shadow-lg overflow-auto scrollbar-hide"
+        ></div>
+      </div>
     </div>
-    
-<script type="module" src="..\scripts\home.js"></script>   
-</body>
+
+    <script type="module" src="..\scripts\home.js"></script>
+  </body>
 </html>
