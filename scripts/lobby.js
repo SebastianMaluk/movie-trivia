@@ -125,7 +125,7 @@ window.addEventListener("load", async function () {
     topLobby.appendChild(buttonContainer);
   } else {
     const div = document.createElement("div");
-    div.classList.add("text-4xl");
+    div.classList.add("text-4xl", "py-4");
     div.textContent = "Esperando a que comience la partida";
     topLobby.appendChild(div);
   }
