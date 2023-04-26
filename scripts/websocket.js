@@ -19,22 +19,10 @@ export function getWebSocket(game_id) {
     let game;
     ws.onopen = async function (event) {
       console.log("Conectado");
-      let profile = await getProfile();
+      let game = await getGame(game_id);
       // FIXME: Cant get players from started game
-      try {
-        game = profile.games_created.find((game) => game.id === Number(game_id));
-      } catch (error) {
-        
-      }
-
-      try {
-        game = profile.games_joined.find((game) => game.id === Number(game_id));
-      } catch (error) {
-        
-      }
       
-      console.log(profile)
-      console.log(game)
+      console.log({gameOnOpen:game})
       addPlayersLobby(game);
     };
     ws.onmessage = async function (event) {
