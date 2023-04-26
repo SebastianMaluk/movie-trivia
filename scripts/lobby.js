@@ -1,7 +1,7 @@
 import { customFetch } from "./fetch.js";
 import { getGame } from "./getGame.js";
 import { getProfile } from "./getProfile.js";
-
+import { getWebSocket } from "./websocket.js";
 
 window.addEventListener("load", async function () {
   const url_string = window.location.href;
