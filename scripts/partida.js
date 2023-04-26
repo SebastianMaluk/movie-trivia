@@ -28,15 +28,11 @@ const respuestaCorrectaInput = document.getElementById(
 );
 const enviarRespuestaBtn = document.getElementById("enviarRespuestaBtn");
 
-window.addEventListener("load",function () {
+window.addEventListener("load", function () {
   addParticipantes();
 
-  textoPregunta.innerHTML =
-    "Tú eres el Preguntón, ingresa tu pregunta para que inicie la ronda";
-  textoRespuesta.innerHTML =
-    "Para validar, envía la respuesta correcta a tu pregunta";
-    const game_id = this.location.href.split("?")[1].split("=")[1];
-    let ws = getWebSocket(game_id);
+  const game_id = this.location.href.split("?")[1].split("=")[1];
+  let ws = getWebSocket(game_id);
 });
 
 function addParticipantes() {
