@@ -189,7 +189,7 @@ function getPartidasCreated() {
         // console.log(`game.started: ${game.started}`);
         // console.log(`game.ended ${game.ended}`);
         const profile = await getProfile();
-        if (game.creator.id == profile.id) {
+        if (game.creator.id === profile.id) {
           // create parent div element
           const parentDiv = document.createElement("div");
           parentDiv.className =
