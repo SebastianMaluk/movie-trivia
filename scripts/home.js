@@ -81,7 +81,7 @@ function getPartidasToJoin() {
         // console.log(`game.rounds_number ${game.rounds_number}`);
         // console.log(`game.started: ${game.started}`);
         // console.log(`game.ended ${game.ended}`);
-        if (!game.started && !game.ended) {
+        if (!game.started && !game.ended && game.creator.id !== profile.id) {
           // create parent div element
           const parentDiv = document.createElement("div");
           parentDiv.className =
