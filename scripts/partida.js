@@ -1,5 +1,6 @@
 import { getWebSocket } from "./websocket.js";
 
+
 const blurFondo = document.getElementById("blur");
 
 // Modal Pregunta
@@ -8,7 +9,7 @@ const cerrarModalPreguntaBtn = document.getElementById(
   "cerrarModalPreguntaBtn"
 );
 const abrirModalPreguntaBtn = document.getElementById("abrirModalPreguntaBtn");
-const textoPregunta = document.getElementById("textoPregunta");
+const textoPreguntaPregunton = document.getElementById("textoPreguntaPregunton");
 
 const preguntaPreguntonInput = document.getElementById("preguntaInput");
 const enviarPreguntaBtn = document.getElementById("enviarPreguntaBtn");
@@ -26,71 +27,21 @@ const textoRespuesta = document.getElementById("textoRespuesta");
 const respuestaCorrectaInput = document.getElementById(
   "respuestaCorrectaInput"
 );
-const enviarRespuestaBtn = document.getElementById("enviarRespuestaBtn");
+const enviarRespuestaPreguntonBtn = document.getElementById("enviarRespuestaPreguntonBtn");
+
+const preguntonPreguntaContainer = document.getElementById("preguntonPreguntaContainer");
+const preguntonRespuestaContainer = document.getElementById("preguntonRespuestaContainer");
+
+const respuestaInput = document.getElementById("respuestaInput");
+const enviarRespuestaPlayerBtn = document.getElementById("enviarRespuestaPlayerBtn");
 
 window.addEventListener("load", function () {
-  addParticipantes();
-
+  preguntonPreguntaContainer.classList.add("hidden");
+  preguntonRespuestaContainer.classList.add("hidden");
   const game_id = this.location.href.split("?")[1].split("=")[1];
   let ws = getWebSocket(game_id);
 });
 
-function addParticipantes() {
-  const container = document.getElementById("bordeParticipantes");
-
-  const names = ["Sebastian", "Javier", "Matias", "Claudio", "Rafael"];
-  const jpg = "../imgs/question-mark.svg";
-  const scores = [123, 109, 109, 101, 98];
-  for (let i = 0; i < names.length; i++) {
-    let row_container = document.createElement("div");
-    row_container.className =
-      "mx-auto my-2 rounded shadow-md text-xs main-color";
-    container.appendChild(row_container);
-    let row = document.createElement("div");
-    row.className = "flex px-2 py-2 items-start";
-    row_container.appendChild(row);
-    // add child to row
-    let col1 = document.createElement("div");
-    col1.className = "w-4/12 flex";
-    row.appendChild(col1);
-    // add child to col1
-    let img = document.createElement("img");
-    img.className = "w-6 sm:w-10 mr-2 self-center opacity-0";
-    if (i == 0) {
-      img.classList.remove("opacity-0");
-    }
-    img.src = jpg;
-    col1.appendChild(img);
-    // add child to col1
-    let col1div = document.createElement("div");
-    col1div.className = "flex flex-col";
-    col1.appendChild(col1div);
-    // add child to col1div
-    let col1divp1 = document.createElement("p");
-    col1divp1.className = "text-s font-bold";
-    col1divp1.innerHTML = names[i];
-    col1div.appendChild(col1divp1);
-    // add child to row
-    let col2 = document.createElement("div");
-    col2.className = "w-5/12 flex justify-end items-center";
-    row.appendChild(col2);
-    // add child to col2
-    let col2p1 = document.createElement("p");
-    col2p1.className = "w-5/12 px-1 text-center";
-    col2p1.innerHTML = "0";
-    col2.appendChild(col2p1);
-    // add child to col2
-    let col2p2 = document.createElement("p");
-    col2p2.className = "w-7/12 px-1 text-center";
-    col2p2.innerHTML = "NO";
-    col2.appendChild(col2p2);
-    // add child to row
-    let col3 = document.createElement("p");
-    col3.className = "w-3/12 text-lg sm:text-xl font-bold text-right";
-    col3.innerHTML = scores[i];
-    row.appendChild(col3);
-  }
-}
 
 abrirModalPreguntaBtn.onclick = function () {
   preguntaModal.classList.remove("hidden");
@@ -105,10 +56,15 @@ cerrarModalPreguntaBtn.onclick = function () {
 enviarPreguntaBtn.onclick = function (event) {
   event.preventDefault();
   var pregunta = preguntaPreguntonInput.value;
-  textoPregunta.innerHTML = pregunta;
+  textoPreguntaPregunton.innerHTML = pregunta;
   abrirModalPreguntaBtn.classList.add("hidden");
   preguntaModal.classList.add("hidden");
   blurFondo.classList.add("hidden");
+
+  let ws = getWebSocket();
+    ws.send(
+        JSON.stringify({action: 'question', text: pregunta})
+    );
 };
 
 abrirModalRespuestaBtn.onclick = function () {
@@ -121,11 +77,19 @@ cerrarModalRespuestaBtn.onclick = function () {
   blurFondo.classList.add("hidden");
 };
 
-enviarRespuestaBtn.onclick = function (event) {
+enviarRespuestaPreguntonBtn.onclick = function (event) {
   event.preventDefault();
   var respuesta = respuestaCorrectaInput.value;
   textoRespuesta.innerHTML = respuesta;
   abrirModalRespuestaBtn.classList.add("hidden");
   respuestaModal.classList.add("hidden");
   blurFondo.classList.add("hidden");
+};
+
+enviarRespuestaPlayerBtn.onclick = function (event) {
+    let respuesta = respuestaInput.value;
+    let ws = getWebSocket();
+    ws.send(
+        JSON.stringify({action: 'answer', text: respuesta})
+    );
 };
