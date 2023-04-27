@@ -1,5 +1,6 @@
 const chatGPTContent = document.getElementById("chatGPTContent");
 const bingChatContent = document.getElementById("bingChatContent");
+const enviarPreguntaBtn = document.getElementById("enviarPreguntaBtn");
 
 // make http request to server
 // when enviarPreguntaBtn is clicked
