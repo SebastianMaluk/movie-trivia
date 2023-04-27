@@ -31,7 +31,7 @@ export function getWebSocket(game_id) {
     };
     ws.onmessage = async function (event) {
       console.log(event.data);
-      const data = JSON.parse(event.data);
+      const data = JSON.parse(event.data.substring(0, event.data.lastIndexOf("}")+1));
       let game;
       let user;
       let nosy_id;
