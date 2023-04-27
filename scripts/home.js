@@ -28,20 +28,51 @@ window.onload = async function onInitialized() {
   getPartidasToJoin();
 };
 
+function addNoGamesMessage() {{
+    const contenedorPartidas = document.getElementById("contenedorPartidas");
+    const parentDiv = document.createElement("div");
+    parentDiv.className =
+        "bg-white mx-5 p-5 rounded-lg text-secondary shadow-lg mb-2";
+
+    // create child grid element
+    const gridDiv = document.createElement("div");
+    gridDiv.className = "grid grid-cols-1 gap-4";
+
+    // create child div elements for each grid column
+    const col1Div = document.createElement("div");
+    col1Div.className = "col-span-1 text-center";
+
+    // create child p element for the first column
+    const pElement = document.createElement("p");
+    pElement.className = "font-bold text-xl";
+    pElement.textContent = "No existen partidas disponibles";
+
+    col1Div.appendChild(pElement);
+    gridDiv.appendChild(col1Div);
+    parentDiv.appendChild(gridDiv);
+
+    contenedorPartidas.appendChild(parentDiv);
+
+}}
+
 function getPartidasToJoin() {
   const games = {
     url: "https://trivia-bck.herokuapp.com/api/games/",
     args: {
       headers: {
+        "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     },
   };
   customFetch(games.url, games.args)
     .then((response) => response.json())
-    .then((partidas) => {
+    .then(async (partidas) => {
+        console.log(partidas)
       contenedorPartidas.innerHTML = "";
       drawHeader();
+      let profile = await getProfile();
+      var gamesAdded = 0;
       partidas.forEach((game) => {
         // console.log(`game.creator.username: ${game.creator.username}`);
         // console.log(`game.players: ${game.players}`);
@@ -139,8 +170,12 @@ function getPartidasToJoin() {
           parentDiv.appendChild(gridDiv);
 
           contenedorPartidas.appendChild(parentDiv);
+          gamesAdded++;
         }
       });
+      if (gamesAdded === 0) {
+        addNoGamesMessage();
+    }
     })
     .catch((error) => {
       console.error("Error fetching games:", error);
@@ -278,8 +313,12 @@ function getPartidasCreated() {
           parentDiv.appendChild(gridDiv);
 
           contenedorPartidas.appendChild(parentDiv);
+          gamesAdded++;
         }
       });
+      if (gamesAdded === 0) {
+        addNoGamesMessage();
+    }
     })
     .catch((error) => {
       console.error("Error fetching games:", error);
