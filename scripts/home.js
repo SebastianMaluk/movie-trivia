@@ -206,15 +206,19 @@ function getPartidasCreated() {
     url: "https://trivia-bck.herokuapp.com/api/games/",
     args: {
       headers: {
+        "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     },
   };
   customFetch(games.url, games.args)
     .then((response) => response.json())
-    .then((partidas) => {
+    .then(async (partidas) => {
       contenedorPartidas.innerHTML = "";
       drawHeader();
+      let profile = await getProfile();
+      partidas = partidas.filter((game) => game.creator.id === profile.id);
+      var gamesAdded = 0;
       partidas.forEach(async (game) => {
         // console.log(`game.creator.username: ${game.creator.username}`);
         // console.log(`game.players: ${game.players}`);
@@ -223,7 +227,6 @@ function getPartidasCreated() {
         // console.log(`game.rounds_number ${game.rounds_number}`);
         // console.log(`game.started: ${game.started}`);
         // console.log(`game.ended ${game.ended}`);
-        const profile = await getProfile();
         if (game.creator.id === profile.id) {
           // create parent div element
           const parentDiv = document.createElement("div");
