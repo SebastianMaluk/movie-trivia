@@ -16,7 +16,6 @@ export async function getGame(game_id) {
     const partidas = await response.json();
     // get game with the id passed as parameter
     const game = partidas.find((game) => game.id === Number(game_id));
-    console.log(game);
     return game;
   } catch (error) {
     throw error;

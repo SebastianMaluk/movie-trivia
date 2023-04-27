@@ -1,5 +1,4 @@
 export function addPlayersLobby(game) {
-    console.log(game);
     const creator = game.creator.username;
     const container = document.getElementById("contenedorUsuariosLobby");
     // clear container
