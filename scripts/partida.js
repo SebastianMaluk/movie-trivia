@@ -38,7 +38,8 @@ const enviarRespuestaPlayerBtn = document.getElementById("enviarRespuestaPlayerB
 window.addEventListener("load", function () {
   preguntonPreguntaContainer.classList.add("hidden");
   preguntonRespuestaContainer.classList.add("hidden");
-  const game_id = this.location.href.split("?")[1].split("=")[1];
+  const url = new URL(window.location.href);
+  const game_id = url.searchParams.get("game_id");
   let ws = getWebSocket(game_id);
 });
 

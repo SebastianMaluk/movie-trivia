@@ -19,8 +19,9 @@ export function getWebSocket(game_id) {
     const token_refresh = localStorage.getItem("refreshToken");
     refreshAccessToken(token_refresh);
     const token_access = localStorage.getItem("accessToken");
-    const url = `wss://trivia-bck.herokuapp.com/ws/trivia/${game_id}/?token=${token_access}`;
-    const ws = new WebSocket(url);
+	const url = new URL(`wss://trivia-bck.herokuapp.com/ws/trivia/${game_id}/`)
+	url.searchParams.set("token", token_access)
+    const ws = new WebSocket(url.href);
     ws.onopen = async function (event) {
       console.log("Conectado");
       let game = await getStartedGame(game_id);
@@ -36,6 +37,7 @@ export function getWebSocket(game_id) {
       let user;
       let nosy_id;
       let question;
+      let url;
       if (data.type === "player_joined") {
         game = await getGame(game_id);
         addPlayersLobby(game);
@@ -44,9 +46,12 @@ export function getWebSocket(game_id) {
         addPlayersLobby(game);
       } else if (data.type === "game_deleted") {
         alert("La partida ha sido eliminada");
-        location.href = "home.html";
+		url = new URL("/views/home.html", window.location);
+        window.location.href = url.href
       } else if (data.type === "game_started") {
-        location.href = `partida.html?game_id=${game_id}`;
+        url = new URL('/views/partida.html', window.location);
+		url.searchParams.set("game_id", game_id);
+        window.location.href = url.href
       } else if (data.type === "round_started") {
         console.log("Round started");
         user = await getProfile();

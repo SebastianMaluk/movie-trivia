@@ -23,11 +23,12 @@ crearPartidaBtn.onclick = async function () {
       body: jsonData,
     },
   };
-  console.log(newGame);
   customFetch(newGame.url, newGame.args)
     .then((response) => response.json())
     .then((data) => {
         console.log(data)
-        location.href = "lobby.html?game_id=" + data.id;
+        const url = new URL("/views/lobby.html", "http://localhost:3000");
+        url.searchParams.set("game_id", data.id);
+        window.location.href = url.href
     });
 };

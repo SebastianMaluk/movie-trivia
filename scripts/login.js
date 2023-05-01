@@ -24,7 +24,8 @@ window.onload = function onInitialized() {
       .then((loginJWTTokens) => {
         localStorage.setItem("refreshToken", loginJWTTokens["refresh"]);
         localStorage.setItem("accessToken", loginJWTTokens["access"]);
-        window.location = "home.html";
+        const url = new URL("/views/home.html", window.location);
+        window.location.href = url.href;
       })
       .catch((error) => {
         console.log(`Caught Exception: ${error}`);

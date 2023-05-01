@@ -13,7 +13,8 @@ var mostrarPartidasParaUnirseBtn = document.getElementById(
 );
 
 crearPartidaBtnFromHome.onclick = function () {
-  location.href = "crearPartida.html";
+  const url = new URL("/views/crearPartida.html", window.location);
+  window.location.href = url.href;
 };
 
 mostrarPartidasParaUnirseBtn.addEventListener("click", function (event) {
@@ -146,7 +147,12 @@ function getPartidasToJoin() {
               .then((response) => response.json())
               .then((data) => {
                 console.log("Success:", data);
-                location.href = "lobby.html?game_id=" + game.id;
+                const url = new URL(
+                  "/views/lobby.html",
+                  window.location
+                );
+                url.searchParams.set("game_id", game.id);
+                window.location.href = url.href
               })
               .catch((error) => console.error("Error:", error));
           };
@@ -292,7 +298,9 @@ function getPartidasCreated() {
               .then((response) => response.json())
               .then((data) => {
                 console.log("Success:", data);
-                location.href = "lobby.html?game_id=" + game.id;
+				const url = new URL("/lobby.html", window.location);
+				url.searchParams.set("game_id", game.id);
+                window.location.href = url.href
               })
               .catch((error) => console.error("Error:", error));
           };
