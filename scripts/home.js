@@ -298,7 +298,7 @@ function getPartidasCreated() {
               .then((response) => response.json())
               .then((data) => {
                 console.log("Success:", data);
-				const url = new URL("/lobby.html", window.location);
+				const url = new URL("/views/lobby.html", window.location);
 				url.searchParams.set("game_id", game.id);
                 window.location.href = url.href
               })
