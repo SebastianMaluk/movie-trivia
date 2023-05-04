@@ -1,5 +1,6 @@
 export function addPlayersInGame(players, nosy_id, user_id) {
   const scoreboard = document.getElementById("bordeParticipantes");
+  scoreboard.innerHTML = "";
   drawScoreboardHeader();
   const jpg = "../imgs/question-mark.svg";
   players.forEach((player) => {
