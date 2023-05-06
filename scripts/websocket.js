@@ -6,7 +6,7 @@ import { refreshAccessToken } from "./fetch.js";
 import { getProfile } from "./getProfile.js";
 import { drawGameContainer } from "./drawGameContainer.js";
 import { drawQuestion } from "./drawQuestion.js";
-
+import { drawResponses } from "./drawResponses.js";
 
 export let ws = null;
 
@@ -32,7 +32,9 @@ export function getWebSocket(game_id) {
     };
     ws.onmessage = async function (event) {
       console.log(event.data);
-      const data = JSON.parse(event.data.substring(0, event.data.lastIndexOf("}")+1));
+      const data = JSON.parse(
+        event.data.substring(0, event.data.lastIndexOf("}") + 1)
+      );
       let game;
       let user;
       let nosy_id;
@@ -56,9 +58,10 @@ export function getWebSocket(game_id) {
         console.log("Round started");
         user = await getProfile();
         nosy_id = data.nosy_id;
-        console.log({user})
-        console.log({nosy_id})
+        console.log({ user });
+        console.log({ nosy_id });
         drawGameContainer(user.id, nosy_id);
+        drawResponses(user.id, nosy_id);
         game = await getStartedGame(game_id);
         addPlayersInGame(game.players, nosy_id, user.id);
       } else if (data.type === "round_question") {
