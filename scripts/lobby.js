@@ -2,16 +2,15 @@ import { customFetch } from "./fetch.js";
 import { getGame } from "./getGame.js";
 import { getProfile } from "./getProfile.js";
 import { addPlayersLobby } from "./addPlayersLobby.js";
+import { CustomWebSocket } from "./websocket.js";
 
 window.addEventListener("load", async function () {
-  const url = new URL(window.location.href);
-  const game_id = url.searchParams.get("game_id");
-  const ws = getWebSocket(game_id);
+  const ws = new CustomWebSocket();
+  await ws.setUp();
+  console.log({ ws });
   //   top lobby generator
   const topLobby = document.getElementById("topLobby");
-  const profile = await getProfile();
-  const game = await getGame(game_id);
-  if (profile.id === game.creator.id) {
+  if (ws.user_id === ws.game.creator.id) {
     const label = document.createElement("label");
     label.setAttribute("for", "cantidadRondas");
     label.classList.add(
@@ -53,9 +52,9 @@ window.addEventListener("load", async function () {
 
     // Create the start game button
     const startGameBtn = document.createElement("a");
-    startGameBtn.addEventListener("click", async function () {
+    startGameBtn.addEventListener("click", function () {
       const rounds = document.getElementById("cantidadRondas").value;
-      ws.send(JSON.stringify({ action: "start", rounds: Number(rounds) }));
+      ws.startGame(rounds);
     });
     startGameBtn.classList.add(
       "bg-blue-500",

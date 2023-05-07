@@ -9,29 +9,48 @@ import { drawQuestion } from "./drawQuestion.js";
 import { drawResponses } from "./drawResponses.js";
 import { cleanUp } from "./cleanUp.js";
 
-export let ws = null;
+export class CustomWebSocket {
+  constructor() {
+    const params = new URLSearchParams(window.location.search);
+    const game_id = params.get("game_id");
+    const access_token = localStorage.getItem("accessToken");
+    const ws_url = new URL(
+      `wss://trivia-bck.herokuapp.com/ws/trivia/${game_id}/`
+    );
+    ws_url.searchParams.set("token", access_token);
+    this.ws = new WebSocket(ws_url.href);
+    this.game_id = game_id;
+    this.game = null;
+    this.user_id = null;
+    this.nosy_id = null;
+  }
+  async setUserId() {
+    const profile = await getProfile();
+    this.user_id = profile.id;
+  }
 
-export function setWebSocket(websocket) {
-  ws = websocket;
-}
+  async setGame() {
+    let game = await getStartedGame(this.game_id);
+    this.game = game;
+    if (game.message === "El juego aun no ha comenzado.") {
+      game = await getGame(this.game_id);
+      this.game = game;
+    }
+  }
 
-export function getWebSocket(game_id) {
-  if (ws === null) {
-    const token_refresh = localStorage.getItem("refreshToken");
-    refreshAccessToken(token_refresh);
-    const token_access = localStorage.getItem("accessToken");
-    const url = new URL(`wss://trivia-bck.herokuapp.com/ws/trivia/${game_id}/`);
-    url.searchParams.set("token", token_access);
-    const ws = new WebSocket(url.href);
-    ws.onopen = async function (event) {
-      console.log("Conectado");
-      let game = await getStartedGame(game_id);
-      if (game.message === "El juego aun no ha comenzado.") {
-        game = await getGame(game_id);
-        addPlayersLobby(game);
-      }
-    };
-    ws.onmessage = async function (event) {
+  async setUp() {
+    await this.setUserId();
+    console.log({ user_id: this.user_id });
+    await this.setGame();
+    console.log({ game: this.game });
+    this.createListeners();
+  }
+
+  createListeners() {
+    if (this.ws === null) {
+      return null;
+    }
+    this.ws.onmessage = async (event) => {
       console.log(event.data);
       const data = JSON.parse(
         event.data.substring(0, event.data.lastIndexOf("}") + 1)
@@ -54,51 +73,73 @@ export function getWebSocket(game_id) {
         window.location.href = url.href;
       } else if (data.type === "game_started") {
         url = new URL("/views/partida.html", window.location);
-        url.searchParams.set("game_id", game_id);
+        url.searchParams.set("game_id", this.game_id);
         window.location.href = url.href;
       } else if (data.type === "round_started") {
         cleanUp();
         console.log("Round started");
-        user = await getProfile();
-        nosy_id = data.nosy_id;
-        console.log({ user });
-        console.log({ nosy_id });
-        drawGameContainer(user.id, nosy_id);
-        game = await getStartedGame(game_id);
-        addPlayersInGame(game.players, nosy_id, user.id);
+        this.nosy_id = data.nosy_id;
+        console.log({ user_id: this.user_id });
+        console.log({ nosy_id: this.nosy_id });
+        drawGameContainer(this.user_id, this.nosy_id);
+        addPlayersInGame(this.game.players, this.nosy_id, this.user_id);
       } else if (data.type === "round_question") {
-        user = await getProfile();
-        game = await getStartedGame(game_id);
-        nosy_id = game.round.nosy;
         question = data.question;
-        drawQuestion(user.id, nosy_id, question);
+        drawQuestion(this.user_id, this.nosy_id, question);
       } else if (data.type === "round_answer") {
-        user = await getProfile();
-        game = await getStartedGame(game_id);
-        nosy_id = game.round.nosy;
-        response_user = findUsernameById(game.players, data.userid);
         response_text = data.answer;
-        drawResponses(user.id, nosy_id, response_user, response_text);
+        if (this.user_id === this.nosy_id) {
+          drawResponses(this.user_id, response_text, this.game.players, this);
+        }
       }
     };
-    ws.onclose = function (event) {
+    this.ws.onclose = function (event) {
       console.log("Desconectado");
       const url = new URL("/views/home.html", window.location);
-      window.location.href = url.href;
+      //   window.location.href = url.href;
     };
-    ws.onerror = function (event) {
+    this.ws.onerror = function (event) {
       console.log("Error");
     };
-    setWebSocket(ws);
   }
-  return ws;
-}
 
-function findUsernameById(users, id) {
-  const user = users.find((user) => user.id === id);
-  if (user) {
-    return user.username;
-  } else {
-    return null;
+  disconnect() {
+    if (this.ws !== null) {
+      this.ws.close();
+      this.ws = null;
+    }
+  }
+
+  startGame(rounds) {
+    const data = {
+      action: "start",
+      rounds: Number(rounds),
+    };
+    this.ws.send(JSON.stringify(data));
+  }
+
+  sendQuestion(question) {
+    const data = {
+      action: "question",
+      text: question,
+    };
+    this.ws.send(JSON.stringify(data));
+  }
+
+  sendAnswer(answer) {
+    const data = {
+      action: "answer",
+      text: answer,
+    };
+    this.ws.send(JSON.stringify(data));
+  }
+
+  sendGrade(user_id, grade) {
+    const data = {
+      action: "qualify",
+      user_id: user_id,
+      grade: grade,
+    };
+    this.ws.send(JSON.stringify(data));
   }
 }
