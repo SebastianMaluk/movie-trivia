@@ -44,11 +44,10 @@ export function getWebSocket(game_id) {
       let response_user;
       let response_text;
       if (data.type === "player_joined") {
-        game = await getGame(game_id);
-        addPlayersLobby(game);
+        this.game = await getGame(this.game_id);
+        addPlayersLobby(this.game);
       } else if (data.type === "player_unjoined") {
-        game = await getGame(game_id);
-        addPlayersLobby(game);
+        addPlayersLobby(this.game);
       } else if (data.type === "game_deleted") {
         alert("La partida ha sido eliminada");
         url = new URL("/views/home.html", window.location);

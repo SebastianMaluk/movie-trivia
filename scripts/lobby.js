@@ -1,7 +1,7 @@
 import { customFetch } from "./fetch.js";
 import { getGame } from "./getGame.js";
 import { getProfile } from "./getProfile.js";
-import { getWebSocket } from "./websocket.js";
+import { addPlayersLobby } from "./addPlayersLobby.js";
 
 window.addEventListener("load", async function () {
   const url = new URL(window.location.href);
@@ -101,4 +101,5 @@ window.addEventListener("load", async function () {
     div.textContent = "Esperando a que comience la partida";
     topLobby.appendChild(div);
   }
+  addPlayersLobby(ws.game);
 });
