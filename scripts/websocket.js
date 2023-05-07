@@ -7,6 +7,7 @@ import { getProfile } from "./getProfile.js";
 import { drawGameContainer } from "./drawGameContainer.js";
 import { drawQuestion } from "./drawQuestion.js";
 import { drawResponses } from "./drawResponses.js";
+import { cleanUp } from "./cleanUp.js";
 
 export let ws = null;
 
@@ -55,6 +56,7 @@ export function getWebSocket(game_id) {
 		url.searchParams.set("game_id", game_id);
         window.location.href = url.href
       } else if (data.type === "round_started") {
+        cleanUp();
         console.log("Round started");
         user = await getProfile();
         nosy_id = data.nosy_id;
