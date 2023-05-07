@@ -20,8 +20,8 @@ export function getWebSocket(game_id) {
     const token_refresh = localStorage.getItem("refreshToken");
     refreshAccessToken(token_refresh);
     const token_access = localStorage.getItem("accessToken");
-	const url = new URL(`wss://trivia-bck.herokuapp.com/ws/trivia/${game_id}/`)
-	url.searchParams.set("token", token_access)
+    const url = new URL(`wss://trivia-bck.herokuapp.com/ws/trivia/${game_id}/`);
+    url.searchParams.set("token", token_access);
     const ws = new WebSocket(url.href);
     ws.onopen = async function (event) {
       console.log("Conectado");
@@ -41,6 +41,8 @@ export function getWebSocket(game_id) {
       let nosy_id;
       let question;
       let url;
+      let response_user;
+      let response_text;
       if (data.type === "player_joined") {
         game = await getGame(game_id);
         addPlayersLobby(game);
@@ -49,12 +51,12 @@ export function getWebSocket(game_id) {
         addPlayersLobby(game);
       } else if (data.type === "game_deleted") {
         alert("La partida ha sido eliminada");
-		url = new URL("/views/home.html", window.location);
-        window.location.href = url.href
+        url = new URL("/views/home.html", window.location);
+        window.location.href = url.href;
       } else if (data.type === "game_started") {
-        url = new URL('/views/partida.html', window.location);
-		url.searchParams.set("game_id", game_id);
-        window.location.href = url.href
+        url = new URL("/views/partida.html", window.location);
+        url.searchParams.set("game_id", game_id);
+        window.location.href = url.href;
       } else if (data.type === "round_started") {
         cleanUp();
         console.log("Round started");
@@ -63,7 +65,6 @@ export function getWebSocket(game_id) {
         console.log({ user });
         console.log({ nosy_id });
         drawGameContainer(user.id, nosy_id);
-        drawResponses(user.id, nosy_id);
         game = await getStartedGame(game_id);
         addPlayersInGame(game.players, nosy_id, user.id);
       } else if (data.type === "round_question") {
@@ -72,6 +73,10 @@ export function getWebSocket(game_id) {
         nosy_id = game.round.nosy;
         question = data.question;
         drawQuestion(user.id, nosy_id, question);
+      } else if (data.type === "round_answer") {
+        response_user = data.userid;
+        response_text = data.answer;
+        drawResponses(user.id, nosy_id, response_user, response_text);
       }
     };
     ws.onclose = function (event) {
