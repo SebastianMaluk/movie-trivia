@@ -65,12 +65,13 @@ cerrarModalPreguntaBtn.onclick = function () {
 enviarPreguntaBtn.onclick = function (event) {
   event.preventDefault();
   var pregunta = preguntaPreguntonInput.value;
-  textoPreguntaPregunton.innerHTML = pregunta;
+  textoPreguntaPregunton.innerText = pregunta;
   abrirModalPreguntaBtn.classList.add("hidden");
   preguntaModal.classList.add("hidden");
   blurFondo.classList.add("hidden");
-
-  let ws = getWebSocket();
+  const url = new URL(window.location.href);
+  const game_id = url.searchParams.get("game_id");
+  let ws = getWebSocket(game_id);
   ws.send(JSON.stringify({ action: "question", text: pregunta }));
 };
 
@@ -87,15 +88,21 @@ cerrarModalRespuestaBtn.onclick = function () {
 enviarRespuestaPreguntonBtn.onclick = function (event) {
   event.preventDefault();
   var respuesta = respuestaCorrectaInput.value;
-  textoRespuesta.innerHTML = respuesta;
+  textoRespuesta.innerText = respuesta;
+  const url = new URL(window.location.href);
+  const game_id = url.searchParams.get("game_id");
+  let ws = getWebSocket(game_id);
+  ws.send(JSON.stringify({ action: "answer", text: respuesta }));
   abrirModalRespuestaBtn.classList.add("hidden");
   respuestaModal.classList.add("hidden");
   blurFondo.classList.add("hidden");
 };
 
 enviarRespuestaPlayerBtn.onclick = function (event) {
-  let respuesta = respuestaInput.value;
-  let ws = getWebSocket();
+  let respuesta = respuestaInput.text;
+  const url = new URL(window.location.href);
+  const game_id = url.searchParams.get("game_id");
+  let ws = getWebSocket(game_id);
   ws.send(JSON.stringify({ action: "answer", text: respuesta }));
-  enviarRespuestaPlayerBtn.classList.add("opacity-50 cursor-not-allowed");
+  enviarRespuestaPlayerBtn.classList.add("opacity-50", "cursor-not-allowed");
 };
