@@ -84,10 +84,7 @@ enviarRespuestaPreguntonBtn.onclick = function (event) {
   event.preventDefault();
   var respuesta = respuestaCorrectaInput.value;
   textoRespuesta.innerText = respuesta;
-  const url = new URL(window.location.href);
-  const game_id = url.searchParams.get("game_id");
-  let ws = getWebSocket(game_id);
-  ws.send(JSON.stringify({ action: "answer", text: respuesta }));
+  ws.sendAnswer(respuesta);
   abrirModalRespuestaBtn.classList.add("hidden");
   respuestaModal.classList.add("hidden");
   blurFondo.classList.add("hidden");
