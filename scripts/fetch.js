@@ -46,7 +46,18 @@ export async function customFetch(url, options = {}) {
   options.headers = options.headers || {};
   options.headers["Authorization"] = `Bearer ${accessToken}`;
 
-  const response = await fetch(url, options);
+  const response = await fetch(url, options)
+  .then((response) => {
+    const contentType = response.headers.get("Content-Type");
+    if (contentType && contentType.includes("application/json")) {
+        return response;
+    } else {
+        throw new Error("Server returned non-JSON response");
+    }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 
   // If the request fails due to an unauthorized error, attempt to refresh the token
   if (response.status === 401) {
