@@ -74,7 +74,10 @@ export function getWebSocket(game_id) {
         question = data.question;
         drawQuestion(user.id, nosy_id, question);
       } else if (data.type === "round_answer") {
-        response_user = data.userid;
+        user = await getProfile();
+        game = await getStartedGame(game_id);
+        nosy_id = game.round.nosy;
+        response_user = findUsernameById(game.players, data.userid);
         response_text = data.answer;
         drawResponses(user.id, nosy_id, response_user, response_text);
       }
@@ -90,4 +93,13 @@ export function getWebSocket(game_id) {
     setWebSocket(ws);
   }
   return ws;
+}
+
+function findUsernameById(users, id) {
+  const user = users.find((user) => user.id === id);
+  if (user) {
+    return user.username;
+  } else {
+    return null;
+  }
 }
