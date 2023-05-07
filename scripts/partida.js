@@ -99,7 +99,7 @@ enviarRespuestaPreguntonBtn.onclick = function (event) {
 };
 
 enviarRespuestaPlayerBtn.onclick = function (event) {
-  let respuesta = respuestaInput.text;
+  let respuesta = respuestaInput.value;
   const url = new URL(window.location.href);
   const game_id = url.searchParams.get("game_id");
   let ws = getWebSocket(game_id);
