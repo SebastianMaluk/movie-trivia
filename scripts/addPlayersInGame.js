@@ -38,7 +38,7 @@ export function addPlayersInGame(players, nosy_id, user_id) {
     if (player.id === user_id) {
         col1divp1.classList.add("text-green-500");
     }
-    col1divp1.innerHTML = player.id;
+    col1divp1.innerHTML = player.username;
     col1div.appendChild(col1divp1);
 
     // add child to row
@@ -87,7 +87,7 @@ function drawScoreboardHeader() {
 
   const div3 = document.createElement("div");
   div3.classList.add("w-4/12", "text-center", "text-red-700");
-  div3.textContent = "Jugadores (id)";
+  div3.textContent = "Jugadores";
 
   const div4 = document.createElement("div");
   div4.classList.add(

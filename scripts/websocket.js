@@ -79,6 +79,8 @@ export function getWebSocket(game_id) {
     };
     ws.onclose = function (event) {
       console.log("Desconectado");
+      const url = new URL("/views/home.html", window.location);
+      window.location.href = url.href;
     };
     ws.onerror = function (event) {
       console.log("Error");
