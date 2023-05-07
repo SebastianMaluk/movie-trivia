@@ -19,9 +19,9 @@ export function drawResponses(user_id, response_text, players, ws) {
     // create child p elements for the first column
     const p1Element = document.createElement("p");
     p1Element.className = "font-bold text-xl";
-    p1Element.textContent = response_user;
+    p1Element.textContent = response_text;
     const p2Element = document.createElement("p");
-    p2Element.textContent = response_text;
+    p2Element.textContent = response_user;
 
     // create child button elements for the second column
     const button1Element = document.createElement("button");
