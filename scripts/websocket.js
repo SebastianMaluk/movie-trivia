@@ -12,14 +12,14 @@ import { cleanUp } from "./cleanUp.js";
 export class CustomWebSocket {
   constructor() {
     const params = new URLSearchParams(window.location.search);
-    const game_id = params.get("game_id");
+    this.game_id = Number(params.get("game_id"));
     const access_token = localStorage.getItem("accessToken");
     const ws_url = new URL(
-      `wss://trivia-bck.herokuapp.com/ws/trivia/${game_id}/`
+      `wss://trivia-bck.herokuapp.com/ws/trivia/${this.game_id}/`
     );
     ws_url.searchParams.set("token", access_token);
+
     this.ws = new WebSocket(ws_url.href);
-    this.game_id = game_id;
     this.game = null;
     this.user_id = null;
     this.nosy_id = null;
@@ -31,11 +31,13 @@ export class CustomWebSocket {
 
   async setGame() {
     let game = await getStartedGame(this.game_id);
-    this.game = game;
     if (game.message === "El juego aun no ha comenzado.") {
       game = await getGame(this.game_id);
-      this.game = game;
+    } else {
+      this.nosy_id = game.round.nosy;
+      drawGameContainer(this.user_id, this.nosy_id);
     }
+    this.game = game;
   }
 
   async setUp() {
@@ -87,17 +89,18 @@ export class CustomWebSocket {
         question = data.question;
         drawQuestion(this.user_id, this.nosy_id, question);
       } else if (data.type === "round_answer") {
-        response_text = data.answer;
+        console.log({ data })
         if (this.user_id === this.nosy_id) {
-          drawResponses(this.user_id, response_text, this.game.players, this);
+          drawResponses(data.userid, data.answer, this.game.players, this.sendGrade.bind(this));
         }
       }
     };
     this.ws.onclose = function (event) {
+      console.log({ event })
       console.log("Desconectado");
       const url = new URL("/views/home.html", window.location);
       //   window.location.href = url.href;
-    };
+    }
     this.ws.onerror = function (event) {
       console.log("Error");
     };
@@ -137,7 +140,7 @@ export class CustomWebSocket {
   sendGrade(user_id, grade) {
     const data = {
       action: "qualify",
-      user_id: user_id,
+      userid: user_id,
       grade: grade,
     };
     this.ws.send(JSON.stringify(data));

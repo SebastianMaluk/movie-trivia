@@ -1,9 +1,8 @@
-import { CustomWebSocket } from "./websocket.js";
-
-export function drawResponses(user_id, response_text, players, ws) {
+export function drawResponses(user_id, response_text, players, sendGrade) {
     const response_user = findUsernameById(players, user_id);
     // create parent div element
     const parentDiv = document.createElement("div");
+    parentDiv.id = `response-${user_id}`;
     parentDiv.className =
       "bg-white p-5 rounded-lg text-secondary shadow-lg mb-2";
 
@@ -27,7 +26,10 @@ export function drawResponses(user_id, response_text, players, ws) {
     const button1Element = document.createElement("button");
     button1Element.id = `response-${user_id}-good`
     button1Element.value = 2;
-    button1Element.addEventListener("click", ws.sendGrade(user_id, 2));
+    button1Element.addEventListener("click", () => {
+        sendGrade(user_id, 2)
+        document.getElementById(`response-${user_id}`).remove();
+    });
     const img1Element = document.createElement("img");
     img1Element.src = "../imgs/good-answer.svg";
     button1Element.appendChild(img1Element);
@@ -35,7 +37,10 @@ export function drawResponses(user_id, response_text, players, ws) {
     const button2Element = document.createElement("button");
     button2Element.id = `response-${user_id}-medium`
     button2Element.value = 1;
-    button2Element.addEventListener("click", ws.sendGrade(user_id, 1));
+    button2Element.addEventListener("click", () => {
+        sendGrade(user_id, 1)
+        document.getElementById(`response-${user_id}`).remove();
+    });
     const img2Element = document.createElement("img");
     img2Element.src = "../imgs/medium-answer.svg";
     button2Element.appendChild(img2Element);
@@ -43,7 +48,10 @@ export function drawResponses(user_id, response_text, players, ws) {
     const button3Element = document.createElement("button");
     button3Element.id = `response-${user_id}-bad`
     button3Element.value = 0;
-    button3Element.addEventListener("click", ws.sendGrade(user_id, 0));
+    button3Element.addEventListener("click", () => {
+        sendGrade(user_id, 0)
+        document.getElementById(`response-${user_id}`).remove();
+    });
     const img3Element = document.createElement("img");
     img3Element.src = "../imgs/bad-answer.svg";
     button3Element.appendChild(img3Element);
@@ -62,16 +70,6 @@ export function drawResponses(user_id, response_text, players, ws) {
     const container = document.getElementById("responsesContainer");
     container.appendChild(parentDiv);
 }
-
-
-function sendGrade(user_id, grade) {
-    
-    ws.send(JSON.stringify({
-        action: "qualify",
-        user_id: user_id,
-        grade: grade,
-    }));
-};
 
 function findUsernameById(users, id) {
     const user = users.find((user) => user.id === id);
