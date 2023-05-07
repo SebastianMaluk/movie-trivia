@@ -27,7 +27,7 @@ crearPartidaBtn.onclick = async function () {
     .then((response) => response.json())
     .then((data) => {
         console.log(data)
-        const url = new URL("/views/lobby.html", "http://localhost:3000");
+        const url = new URL("/views/lobby.html", window.location);
         url.searchParams.set("game_id", data.id);
         window.location.href = url.href
     });

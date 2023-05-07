@@ -4,12 +4,8 @@ import { getProfile } from "./getProfile.js";
 import { getWebSocket } from "./websocket.js";
 
 window.addEventListener("load", async function () {
-  const url_string = window.location.href;
-  // split url string by ? and get the second element of the array
-  const parameters = url_string.split("?")[1];
-  console.log(url_string);
-  // split url by = and get the second element of the array
-  const game_id = parameters.split("=")[1];
+  const url = new URL(window.location.href);
+  const game_id = url.searchParams.get("game_id");
   const ws = getWebSocket(game_id);
   //   top lobby generator
   const topLobby = document.getElementById("topLobby");
