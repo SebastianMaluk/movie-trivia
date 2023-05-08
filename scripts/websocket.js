@@ -7,6 +7,7 @@ import { getProfile } from "./getProfile.js";
 import { drawGameContainer } from "./drawGameContainer.js";
 import { drawQuestion } from "./drawQuestion.js";
 import { drawResponses } from "./drawResponses.js";
+import { drawRoundReview } from "./drawRoundReview.js";
 import { cleanUp } from "./cleanUp.js";
 
 export class CustomWebSocket {
@@ -93,6 +94,10 @@ export class CustomWebSocket {
         if (this.user_id === this.nosy_id) {
           drawResponses(data.userid, data.answer, this.game.players, this.sendGrade.bind(this));
         }
+      } else if (data.type === "round_review_answer") {
+        if (this.user_id !== this.nosy_id) {
+          drawRoundReview(data.correct_answer, data.graded_answer, data.grade, this.sendReview.bind(this));
+        }
       }
     };
     this.ws.onclose = function (event) {
@@ -142,6 +147,14 @@ export class CustomWebSocket {
       action: "qualify",
       userid: user_id,
       grade: grade,
+    };
+    this.ws.send(JSON.stringify(data));
+  }
+
+  sendReview(correctness) {
+    const data = {
+      action: "assess",
+      correctness: correctness,
     };
     this.ws.send(JSON.stringify(data));
   }
