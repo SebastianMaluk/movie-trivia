@@ -34,9 +34,6 @@ export class CustomWebSocket {
     let game = await getStartedGame(this.game_id);
     if (game.message === "El juego aun no ha comenzado.") {
       game = await getGame(this.game_id);
-    } else {
-      this.nosy_id = game.round.nosy;
-      drawGameContainer(this.user_id, this.nosy_id);
     }
     this.game = game;
   }
