@@ -26,7 +26,7 @@ export function drawGameContainer(user_id, nosy_id) {
     const textoPreguntaPregunton = document.getElementById(
         "textoPreguntaPregunton"
     );
-    textoPreguntaPregunton.textContent = "Pregunta:";
+    textoPreguntaPregunton.textContent = "";
   } else {
     questionContainer.classList.remove("hidden");
     answerContainer.classList.remove("hidden");
