@@ -59,7 +59,6 @@ window.addEventListener("load", async function () {
   };
 
   enviarPreguntaBtn.onclick = function (event) {
-    const questionTimeContainer = document.getElementById("tiempoPreguntar");
     event.preventDefault();
     var pregunta = preguntaPreguntonInput.value;
     textoPreguntaPregunton.innerText = pregunta;
@@ -67,7 +66,6 @@ window.addEventListener("load", async function () {
     preguntaModal.classList.add("hidden");
     blurFondo.classList.add("hidden");
     ws.sendQuestion(pregunta);
-    questionTimeContainer.innerText = 0;
   };
 
   abrirModalRespuestaBtn.onclick = function () {
@@ -88,6 +86,8 @@ window.addEventListener("load", async function () {
     abrirModalRespuestaBtn.classList.add("hidden");
     respuestaModal.classList.add("hidden");
     blurFondo.classList.add("hidden");
+    const answerTimeContainer = document.getElementById("tiempoResponder");
+    answerTimeContainer.innerText = 1;
   };
 
   enviarRespuestaPlayerBtn.onclick = function (event) {
@@ -97,6 +97,6 @@ window.addEventListener("load", async function () {
     const answerContainer = document.getElementById("answerContainer");
     answerContainer.classList.add("hidden");
     respuestaInput.value = "";
-    answerTimeContainer.innerText = 0;
+    answerTimeContainer.innerText = 1;
   };
 });
