@@ -61,10 +61,8 @@ export class CustomWebSocket {
       return null;
     }
     this.ws.onmessage = async (event) => {
-      console.log(event.data);
-      const data = JSON.parse(
-        event.data.substring(0, event.data.lastIndexOf("}") + 1)
-      );
+      const data = JSON.parse(event.data);
+      console.log({ data });
       let game;
       let user;
       let nosy_id;
