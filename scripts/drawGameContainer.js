@@ -1,4 +1,5 @@
 export function drawGameContainer(user_id, nosy_id) {
+  const questionContainer = document.getElementById("questionContainer");
   const answerContainer = document.getElementById("answerContainer");
   if (user_id === nosy_id) {
     const preguntonPreguntaContainer = document.getElementById(
@@ -13,6 +14,7 @@ export function drawGameContainer(user_id, nosy_id) {
     preguntonRespuestaContainer.classList.remove("hidden");
     respuestasContainer.classList.remove("hidden");
   } else {
+    questionContainer.classList.remove("hidden");
     answerContainer.classList.remove("hidden");
 
     const textoPreguntaPlayer = document.getElementById("textoPreguntaPlayer");
