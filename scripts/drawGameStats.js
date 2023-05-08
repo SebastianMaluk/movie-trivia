@@ -31,6 +31,7 @@ export function questionCountdown() {
 
   if (Number.isInteger(value) && value > 0) {
     const intervalId = setInterval(() => {
+      value = parseInt(questionTimeContainer.innerText);
       value -= 1;
       questionTimeContainer.innerText = value;
 
@@ -42,11 +43,14 @@ export function questionCountdown() {
 }
 
 export function answerCountdown() {
+  const questionTimeContainer = document.getElementById("tiempoPreguntar");
+  questionTimeContainer.innerText = 1;
   const answerTimeContainer = document.getElementById("tiempoResponder");
   let value = parseInt(answerTimeContainer.innerText);
 
   if (Number.isInteger(value) && value > 0) {
     const intervalId = setInterval(() => {
+      value = parseInt(answerTimeContainer.innerText);
       value -= 1;
       answerTimeContainer.innerText = value;
 
@@ -56,7 +60,7 @@ export function answerCountdown() {
     }, 1000);
   }
 }
-
+// TODO: Evaluation countdown
 export function qualifyCountdown() {
   const qualifyTimeContainer = document.getElementById("tiempoCalificar");
   let value = parseInt(qualifyTimeContainer.innerText);
