@@ -29,7 +29,6 @@ const requestListener = function (req, res) {
       console.log({ body })
       let chatGPT;
       chatGPT = await ChatGPTAsk(body.pregunta);
-      console.log({ chatGPT: chatGPT.data.choices })
       if (chatGPT.status === 200) {
         chatGPT = chatGPT.data.choices[0].message.content;
       } else {
