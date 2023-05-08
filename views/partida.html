@@ -165,14 +165,14 @@
             </button>
           </div>
         </div>
-        <div id="answerContainer" class="hidden">
+        <div id="questionContainer" class="hidden">
             <div class="bg-gray-500 p-5 rounded-lg text-secondary shadow-lg mb-5">
                 <h3 class="text-white text-lg font-bold mb-1">Pregunta:</h3>
                 <p id="textoPreguntaPlayer" class="text-white text-lg text-center"></p>
                 
             </div>
-            
-
+        </div>
+        <div id="answerContainer" class="hidden"></div>
             <h3 class="main-color text-2xl font-bold mt-14 mb-4 flex justify-center">Ingresa tu respuesta</h3>
 
             <input id="respuestaInput" type="text" class="appearance-none border-2 rounded w-full h-16 py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline">
@@ -186,6 +186,36 @@
         <div id="incomingAnswers" class="hidden">
             <h3 class="main-color text-2xl font-bold mt-3 mb-1">Respuestas</h3>
             <div id="responsesContainer" class="bg-white p-5 rounded-lg text-secondary shadow-lg border-solid border-2 main-border overflow-auto">
+            </div>
+        </div>
+        <div id="roundReviewAnswerContainer" class="hidden">
+            <div class="bg-gray-500 p-5 rounded-lg text-secondary shadow-lg mb-5">
+                <h3 class="text-white text-lg font-bold mb-1">Respuesta Correcta:</h3>
+                <p id="correctAnswerText" class="text-white text-lg text-center"></p>
+            </div>
+            <div class="bg-gray-500 p-5 rounded-lg text-secondary shadow-lg mb-5">
+                <h3 class="text-white text-lg font-bold mb-1">Respuesta Jugador X:</h3>
+                <p id="gradedAnswerText" class="text-white text-lg text-center"></p>
+            </div>
+            <div class="bg-gray-500 p-5 rounded-lg text-secondary shadow-lg mb-5">
+                <h3 class="text-white text-lg font-bold mb-1">Evaluación del Preguntón:</h3>
+                <p id="preguntonGradeText" class="text-white text-lg text-center"></p>
+            </div>
+            <div class="flex justify-center">
+                <button
+                id="goodEvaluationBtn"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline m-1"
+                value=1
+                >
+                Buena Evaluación
+                </button>
+                <button
+                id="badEvaluationBtn"
+                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline m-1"
+                value=0
+                >
+                Mala Evaluación
+                </button>
             </div>
         </div>
       </div>
