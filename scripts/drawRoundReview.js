@@ -22,7 +22,7 @@ export function drawRoundReview(correct_answer, graded_answer, grade, sendReview
     sendReview(true);
     roundReviewAnswerContainer.classList.add("hidden");
     questionContainer.classList.add("hidden");
-    qualifyTimeContainer = document.getElementById("tiempoCalificar");
+    const qualifyTimeContainer = document.getElementById("tiempoCalificar");
     qualifyTimeContainer.innerText = 1;
   });
 
@@ -32,7 +32,7 @@ export function drawRoundReview(correct_answer, graded_answer, grade, sendReview
     sendReview(false);
     roundReviewAnswerContainer.classList.add("hidden");
     questionContainer.classList.add("hidden");
-    qualifyTimeContainer = document.getElementById("tiempoCalificar");
+    const qualifyTimeContainer = document.getElementById("tiempoCalificar");
     qualifyTimeContainer.innerText = 1;
   });
 
