@@ -116,7 +116,7 @@ export class CustomWebSocket {
         drawQuestion(this.user_id, this.game.round.nosy, question);
         answerCountdown();
         if (this.user_id !== this.game.round.nosy) {
-            getHelp(question);
+            getHelp(data.question);
         }
       } else if (data.type === "round_answer") {
         if (this.user_id === this.game.round.nosy) {
