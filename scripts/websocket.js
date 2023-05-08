@@ -150,6 +150,8 @@ export class CustomWebSocket {
         if (this.user_id === this.game.round.nosy) {
           qualifyCountdown(90);
         }
+      } else if (data.type === "round_result") {
+        addPlayersInGame(this.game.players, this.game.round.nosy, this.user_id);
       }
     };
     this.ws.onclose = function (event) {
