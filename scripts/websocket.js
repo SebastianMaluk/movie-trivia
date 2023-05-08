@@ -56,10 +56,24 @@ export class CustomWebSocket {
   }
 
 
-  createListeners() {
+  async createListeners() {
     if (this.ws === null) {
+        console.log("Websocket not connected")
       return null;
     }
+    this.ws.onopen = async () => {
+        await this.setGame();
+        await this.setUserId();
+        if (this.game.hasOwnProperty("started")) { // means game hasn't started
+            if (this.game.started === null) {
+                console.log("Game hasn't started");
+                console.log("You are on lobby");
+            }
+        } else {
+            drawGameContainer(this.user_id, this.game.round.nosy)
+        }        
+    };
+
     this.ws.onmessage = async (event) => {
       const data = JSON.parse(event.data);
       console.log({ data });
