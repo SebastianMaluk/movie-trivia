@@ -7,6 +7,7 @@ import { getProfile } from "./getProfile.js";
 import { drawGameContainer } from "./drawGameContainer.js";
 import { drawQuestion } from "./drawQuestion.js";
 import { drawResponses } from "./drawResponses.js";
+import { drawGameStats } from "./drawGameStats.js";
 import { cleanUp } from "./cleanUp.js";
 
 export class CustomWebSocket {
@@ -83,24 +84,35 @@ export class CustomWebSocket {
         this.nosy_id = data.nosy_id;
         console.log({ user_id: this.user_id });
         console.log({ nosy_id: this.nosy_id });
+        drawGameStats(
+          this.game.rounds,
+          this.game.current_round,
+          localStorage.getItem("questionTime"),
+          localStorage.getItem("answerTime")
+        );
         drawGameContainer(this.user_id, this.nosy_id);
         addPlayersInGame(this.game.players, this.nosy_id, this.user_id);
       } else if (data.type === "round_question") {
         question = data.question;
         drawQuestion(this.user_id, this.nosy_id, question);
       } else if (data.type === "round_answer") {
-        console.log({ data })
+        console.log({ data });
         if (this.user_id === this.nosy_id) {
-          drawResponses(data.userid, data.answer, this.game.players, this.sendGrade.bind(this));
+          drawResponses(
+            data.userid,
+            data.answer,
+            this.game.players,
+            this.sendGrade.bind(this)
+          );
         }
       }
     };
     this.ws.onclose = function (event) {
-      console.log({ event })
+      console.log({ event });
       console.log("Desconectado");
       const url = new URL("/views/home.html", window.location);
       //   window.location.href = url.href;
-    }
+    };
     this.ws.onerror = function (event) {
       console.log("Error");
     };

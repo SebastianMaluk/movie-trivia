@@ -8,6 +8,10 @@ window.addEventListener("load", async function () {
   const ws = new CustomWebSocket();
   await ws.setUp();
   console.log({ ws });
+
+  localStorage.setItem("questionTime", ws.game.quesquestion_time);
+  localStorage.setItem("answerTime", ws.game.answer_time);
+
   //   top lobby generator
   const topLobby = document.getElementById("topLobby");
   if (ws.user_id === ws.game.creator.id) {
