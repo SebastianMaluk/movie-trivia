@@ -45,10 +45,8 @@ const enviarRespuestaPlayerBtn = document.getElementById(
 );
 
 window.addEventListener("load", async function () {
-  preguntonPreguntaContainer.classList.add("hidden");
-  preguntonRespuestaContainer.classList.add("hidden");
   const ws = new CustomWebSocket();
-  await ws.setUp();
+  await ws.asyncConstructor();
 
   abrirModalPreguntaBtn.onclick = function () {
     preguntaModal.classList.remove("hidden");

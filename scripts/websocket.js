@@ -18,6 +18,11 @@ import { getHelp } from "./help.js";
 
 export class CustomWebSocket {
   constructor() {
+    this.game = null;
+    this.user_id = null;
+  }
+
+  async asyncConstructor() {
     const params = new URLSearchParams(window.location.search);
     this.game_id = Number(params.get("game_id"));
     const access_token = localStorage.getItem("accessToken");
@@ -27,30 +32,29 @@ export class CustomWebSocket {
     ws_url.searchParams.set("token", access_token);
 
     this.ws = new WebSocket(ws_url.href);
-    this.game = null;
-    this.user_id = null;
-    this.nosy_id = null;
+    await this.setGame();
+    await this.setUserId();
+    await this.createListeners();
   }
+
   async setUserId() {
     const profile = await getProfile();
     this.user_id = profile.id;
   }
 
   async setGame() {
+    // get game_id from url
+    const params = new URLSearchParams(window.location.search); 
+    this.game_id = Number(params.get("game_id"));
     let game = await getStartedGame(this.game_id);
     if (game.message === "El juego aun no ha comenzado.") {
       game = await getGame(this.game_id);
+      localStorage.setItem("questionTime", game.question_time);
+      localStorage.setItem("answerTime", game.answer_time);
     }
     this.game = game;
   }
 
-  async setUp() {
-    await this.setUserId();
-    console.log({ user_id: this.user_id });
-    await this.setGame();
-    console.log({ game: this.game });
-    this.createListeners();
-  }
 
   createListeners() {
     if (this.ws === null) {
