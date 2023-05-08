@@ -93,6 +93,9 @@ enviarRespuestaPreguntonBtn.onclick = function (event) {
 enviarRespuestaPlayerBtn.onclick = function (event) {
   let respuesta = respuestaInput.value;
   ws.sendAnswer(respuesta);
+  const answerContainer = document.getElementById("answerContainer");
+  answerContainer.classList.add("hidden");
+  respuestaInput.value = "";
 };
 
 });
