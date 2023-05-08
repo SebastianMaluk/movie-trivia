@@ -85,10 +85,6 @@ export class CustomWebSocket {
         window.location.href = url.href;
       } else if (data.type === "round_started") {
         cleanUp();
-        console.log("Round started");
-        this.nosy_id = data.nosy_id;
-        console.log({ user_id: this.user_id });
-        console.log({ nosy_id: this.nosy_id });
         await this.setGame();
         drawGameStats(
           this.game.rounds,
@@ -96,21 +92,20 @@ export class CustomWebSocket {
           localStorage.getItem("questionTime"),
           localStorage.getItem("answerTime"),
           this.user_id,
-          this.nosy_id
+          data.nosy_id
         );
-        drawGameContainer(this.user_id, this.nosy_id);
-        addPlayersInGame(this.game.players, this.nosy_id, this.user_id);
+        drawGameContainer(this.user_id, data.nosy_id);
+        addPlayersInGame(this.game.players, data.nosy_id, this.user_id);
         questionCountdown();
       } else if (data.type === "round_question") {
         question = data.question;
-        drawQuestion(this.user_id, this.nosy_id, question);
+        drawQuestion(this.user_id, this.game.round.nosy, question);
         answerCountdown();
         if (this.user_id !== this.game.round.nosy) {
             getHelp(question);
         }
       } else if (data.type === "round_answer") {
-        console.log({ data });
-        if (this.user_id === this.nosy_id) {
+        if (this.user_id === this.game.round.nosy) {
           drawResponses(
             data.userid,
             data.answer,
@@ -119,7 +114,7 @@ export class CustomWebSocket {
           );
         }
       } else if (data.type === "round_review_answer") {
-        if (this.user_id !== this.nosy_id) {
+        if (this.user_id !== this.game.round.nosy) {
           drawRoundReview(
             data.correct_answer,
             data.graded_answer,
@@ -128,7 +123,7 @@ export class CustomWebSocket {
           );
         }
       } else if (data.type === "round_review_answer") {
-        if (this.user_id !== this.nosy_id) {
+        if (this.user_id !== this.game.round.nosy) {
           drawRoundReview(
             data.correct_answer,
             data.graded_answer,
@@ -138,7 +133,7 @@ export class CustomWebSocket {
           qualifyCountdown(30);
         }
       } else if (data.type === "answer_time_ended") {
-        if (this.user_id === this.nosy_id) {
+        if (this.user_id === this.game.round.nosy) {
           qualifyCountdown(90);
         }
       }
