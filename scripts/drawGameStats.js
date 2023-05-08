@@ -61,12 +61,12 @@ export function answerCountdown() {
 
 export function qualifyCountdown(time) {
   const qualifyTimeContainer = document.getElementById("tiempoCalificar");
-  qualifyTimeContainer = time;
+  qualifyTimeContainer.innerText = time.toString();
   let value = parseInt(qualifyTimeContainer.innerText);
 
   if (Number.isInteger(value) && value > 0) {
     const intervalId = setInterval(() => {
-      value = parseInt(QualifyTimeContainer.innerText);
+      value = parseInt(qualifyTimeContainer.innerText);
       value -= 1;
       qualifyTimeContainer.innerText = value;
 
