@@ -10,6 +10,9 @@ import { drawResponses } from "./drawResponses.js";
 import { drawRoundReview } from "./drawRoundReview.js";
 import { drawGameStats } from "./drawGameStats.js";
 import { cleanUp } from "./cleanUp.js";
+import { questionCountdown } from "./drawGameStats.js";
+import { answerCountdown } from "./drawGameStats.js";
+import { qualifyCountdown } from "./drawGameStats.js";
 
 export class CustomWebSocket {
   constructor() {
@@ -82,17 +85,22 @@ export class CustomWebSocket {
         this.nosy_id = data.nosy_id;
         console.log({ user_id: this.user_id });
         console.log({ nosy_id: this.nosy_id });
+        await this.setGame();
         drawGameStats(
           this.game.rounds,
           this.game.current_round,
           localStorage.getItem("questionTime"),
-          localStorage.getItem("answerTime")
+          localStorage.getItem("answerTime"),
+          this.user_id,
+          this.nosy_id
         );
         drawGameContainer(this.user_id, this.nosy_id);
         addPlayersInGame(this.game.players, this.nosy_id, this.user_id);
+        questionCountdown();
       } else if (data.type === "round_question") {
         question = data.question;
         drawQuestion(this.user_id, this.nosy_id, question);
+        answerCountdown();
       } else if (data.type === "round_answer") {
         console.log({ data });
         if (this.user_id === this.nosy_id) {
@@ -105,11 +113,26 @@ export class CustomWebSocket {
         }
       } else if (data.type === "round_review_answer") {
         if (this.user_id !== this.nosy_id) {
-          drawRoundReview(data.correct_answer, data.graded_answer, data.grade, this.sendReview.bind(this));
+          drawRoundReview(
+            data.correct_answer,
+            data.graded_answer,
+            data.grade,
+            this.sendReview.bind(this)
+          );
         }
       } else if (data.type === "round_review_answer") {
         if (this.user_id !== this.nosy_id) {
-          drawRoundReview(data.correct_answer, data.graded_answer, data.grade, this.sendReview.bind(this));
+          drawRoundReview(
+            data.correct_answer,
+            data.graded_answer,
+            data.grade,
+            this.sendReview.bind(this)
+          );
+          qualifyCountdown();
+        }
+      } else if (data.type === "answer_time_ended") {
+        if (this.user_id === this.nosy_id) {
+          qualifyCountdown();
         }
       }
     };
