@@ -13,6 +13,8 @@ import { cleanUp } from "./cleanUp.js";
 import { questionCountdown } from "./drawGameStats.js";
 import { answerCountdown } from "./drawGameStats.js";
 import { qualifyCountdown } from "./drawGameStats.js";
+import { getHelp } from "./help.js";
+
 
 export class CustomWebSocket {
   constructor() {
@@ -101,6 +103,9 @@ export class CustomWebSocket {
         question = data.question;
         drawQuestion(this.user_id, this.nosy_id, question);
         answerCountdown();
+        if (this.user_id !== this.game.round.nosy) {
+            getHelp(question);
+        }
       } else if (data.type === "round_answer") {
         console.log({ data });
         if (this.user_id === this.nosy_id) {
