@@ -8,7 +8,7 @@ window.onload = function onInitialized() {
 
   registerBtn.onclick = function () {
     var data = new FormData();
-    data.append("username", "G18_" + username.value);
+    data.append("username", username.value);
     data.append("password1", password.value);
     data.append("password2", passwordConfirm.value);
 

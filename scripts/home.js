@@ -1,4 +1,6 @@
 import { customFetch } from "./fetch.js";
+import { getProfile } from "./getProfile.js";
+
 
 const contenedorPartidas = document.getElementById("contenedorPartidas");
 
@@ -13,7 +15,8 @@ var mostrarPartidasParaUnirseBtn = document.getElementById(
 );
 
 crearPartidaBtnFromHome.onclick = function () {
-  location.href = "crearPartida.html";
+  const url = new URL("/views/crearPartida.html", window.location);
+  window.location.href = url.href;
 };
 
 mostrarPartidasParaUnirseBtn.addEventListener("click", function (event) {
@@ -24,9 +27,9 @@ mostrarPartidasCreadasBtn.addEventListener("click", function (event) {
   getPartidasCreated();
 });
 
-window.onload = async function onInitialized() {
-  getPartidasToJoin();
-};
+window.addEventListener("load", function () {
+    getPartidasToJoin();
+});
 
 function addNoGamesMessage() {{
     const contenedorPartidas = document.getElementById("contenedorPartidas");
@@ -68,10 +71,10 @@ function getPartidasToJoin() {
   customFetch(games.url, games.args)
     .then((response) => response.json())
     .then(async (partidas) => {
-        console.log(partidas)
       contenedorPartidas.innerHTML = "";
       drawHeader();
       let profile = await getProfile();
+      partidas = partidas.filter((game) => game.creator.id !== profile.id);
       var gamesAdded = 0;
       partidas.forEach((game) => {
         // console.log(`game.creator.username: ${game.creator.username}`);
@@ -146,7 +149,12 @@ function getPartidasToJoin() {
               .then((response) => response.json())
               .then((data) => {
                 console.log("Success:", data);
-                location.href = "lobby.html?game_id=" + game.id;
+                const url = new URL(
+                  "/views/lobby.html",
+                  window.location
+                );
+                url.searchParams.set("game_id", game.id);
+                window.location.href = url.href
               })
               .catch((error) => console.error("Error:", error));
           };
@@ -180,25 +188,6 @@ function getPartidasToJoin() {
     .catch((error) => {
       console.error("Error fetching games:", error);
     });
-}
-
-async function getProfile() {
-  const profile = {
-    url: "https://trivia-bck.herokuapp.com/api/profile/",
-    args: {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("accessToken"),
-      },
-    },
-  };
-
-  try {
-    const response = await customFetch(profile.url, profile.args);
-    const user = await response.json();
-    return user;
-  } catch (error) {
-    throw error;
-  }
 }
 
 function getPartidasCreated() {
@@ -292,7 +281,9 @@ function getPartidasCreated() {
               .then((response) => response.json())
               .then((data) => {
                 console.log("Success:", data);
-                location.href = "lobby.html?game_id=" + game.id;
+				const url = new URL("/views/lobby.html", window.location);
+				url.searchParams.set("game_id", game.id);
+                window.location.href = url.href
               })
               .catch((error) => console.error("Error:", error));
           };

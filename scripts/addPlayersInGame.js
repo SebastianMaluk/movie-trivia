@@ -1,7 +1,11 @@
 export function addPlayersInGame(players, nosy_id, user_id) {
-  const scoreboard = document.getElementById("bordeParticipantes");
-  drawScoreboardHeader();
+  const scoreboard = document.getElementById("scoreboardContent");
+  scoreboard.innerHTML = "";
   const jpg = "../imgs/question-mark.svg";
+//   sort players by score
+  players.sort((a, b) => {
+    return b.score - a.score;
+  });
   players.forEach((player) => {
     let row_container = document.createElement("div");
     row_container.className =
@@ -37,29 +41,28 @@ export function addPlayersInGame(players, nosy_id, user_id) {
     if (player.id === user_id) {
         col1divp1.classList.add("text-green-500");
     }
-    col1divp1.innerHTML = player.id;
+    col1divp1.innerHTML = player.username;
     col1div.appendChild(col1divp1);
 
     // add child to row
     let col2 = document.createElement("div");
-    col2.className = "w-5/12 flex justify-end items-center";
+    col2.className = "w-5/12 flex justify-center inline items-center";
     row.appendChild(col2);
 
     // add child to col2
-    let col2p1 = document.createElement("p");
-    col2p1.className = "w-5/12 px-1 text-center";
-    col2p1.innerHTML = player.faults;
+    let col2p1 = document.createElement("span");
+    col2p1.className = "flex";
+    for (let i = 0; i < player.faults; i++) {
+      let img = document.createElement("img");
+      img.className = "w-6 self-center";
+      img.src = "../imgs/fault.svg";
+      col2p1.appendChild(img);
+    }
     col2.appendChild(col2p1);
 
-    // add child to col2
-    let col2p2 = document.createElement("p");
-    col2p2.className = "w-7/12 px-1 text-center";
-    if (player.faults >= 3) {
-      col2p2.innerHTML = "SI";
-    } else {
-      col2p2.innerHTML = "NO";
+    if (player.faults === 3) {
+        row.classList.add("bg-red-300");
     }
-    col2.appendChild(col2p2);
 
     // add child to row
     let col3 = document.createElement("p");
@@ -67,58 +70,4 @@ export function addPlayersInGame(players, nosy_id, user_id) {
     col3.innerHTML = player.score;
     row.appendChild(col3);
   });
-}
-
-function drawScoreboardHeader() {
-  const div1 = document.createElement("div");
-  div1.id = "scoreboard_header";
-  div1.classList.add("my-2", "rounded", "shadow-md", "text-xs", "min-w-fit");
-
-  const div2 = document.createElement("div");
-  div2.classList.add(
-    "flex",
-    "items-start",
-    "bg-gray-200",
-    "px-2",
-    "py-2",
-    "min-w-fit"
-  );
-
-  const div3 = document.createElement("div");
-  div3.classList.add("w-4/12", "text-center", "text-red-700");
-  div3.textContent = "Jugadores (id)";
-
-  const div4 = document.createElement("div");
-  div4.classList.add(
-    "w-5/12",
-    "flex",
-    "justify-end",
-    "items-center",
-    "text-red-700"
-  );
-
-  const p1 = document.createElement("p");
-  p1.classList.add("w-5/12", "px-2", "text-center");
-  p1.textContent = "Errores";
-
-  const p2 = document.createElement("p");
-  p2.classList.add("w-7/12", "px-2", "text-center");
-  p2.textContent = "Descalificado";
-
-  const div5 = document.createElement("div");
-  div5.classList.add("w-3/12", "text-red-700", "text-right");
-  div5.textContent = "Puntaje";
-
-  div4.appendChild(p1);
-  div4.appendChild(p2);
-
-  div2.appendChild(div3);
-  div2.appendChild(div4);
-  div2.appendChild(div5);
-
-  div1.appendChild(div2);
-
-  const scoreboard = document.getElementById("bordeParticipantes");
-
-  scoreboard.appendChild(div1);
 }

@@ -1,7 +1,7 @@
 import { customFetch } from "./fetch.js";
 
 export async function getGame(game_id) {
-  const games = {
+  const request = {
     url: "https://trivia-bck.herokuapp.com/api/games/",
     args: {
       headers: {
@@ -10,14 +10,14 @@ export async function getGame(game_id) {
       },
     },
   };
-
-  try {
-    const response = await customFetch(games.url, games.args);
-    const partidas = await response.json();
-    // get game with the id passed as parameter
-    const game = partidas.find((game) => game.id === Number(game_id));
+  const game = await customFetch(request.url, request.args)
+    .then((response) => response.json())
+    .then((data) => {
+        const game = data.find((game) => game.id === Number(game_id));
+        return game;
+    })
+    .catch((error) => {
+        console.log(error);
+    });
     return game;
-  } catch (error) {
-    throw error;
-  }
 }

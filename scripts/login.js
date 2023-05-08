@@ -5,7 +5,7 @@ var loginBtn = document.getElementById("loginBtn");
 window.onload = function onInitialized() {
   loginBtn.onclick = function () {
     var jsonData = JSON.stringify({
-      username: "G18_" + username.value,
+      username: username.value,
       password: password.value,
     });
 
@@ -24,7 +24,8 @@ window.onload = function onInitialized() {
       .then((loginJWTTokens) => {
         localStorage.setItem("refreshToken", loginJWTTokens["refresh"]);
         localStorage.setItem("accessToken", loginJWTTokens["access"]);
-        window.location = "home.html";
+        const url = new URL("/views/home.html", window.location);
+        window.location.href = url.href;
       })
       .catch((error) => {
         console.log(`Caught Exception: ${error}`);

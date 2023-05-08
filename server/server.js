@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { BingChatAsk } from "../scripts/bingchat.js";
+import { GoogleAsk } from "../scripts/google.js";
 import { ChatGPTAsk } from "../scripts/chatgpt.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -26,24 +26,23 @@ const requestListener = function (req, res) {
 
     req.on("end", async () => {
       const body = JSON.parse(data);
+      console.log({ body })
       let chatGPT;
       chatGPT = await ChatGPTAsk(body.pregunta);
-      if (chatGPT.status !== 200) {
-        chatGPT = "Error";
-      } else {
+      if (chatGPT.status === 200) {
         chatGPT = chatGPT.data.choices[0].message.content;
+      } else {
+        chatGPT = "Error";
       }
 
-      let bingChat;
-      try {
-        bingChat = await BingChatAsk(body.pregunta);
-        if (bingChat == "") {
-          bingChat = "Error";
-        }
-      } catch (error) {
-        bingChat = "Error";
+      let google;
+      google = await GoogleAsk(body.pregunta)
+      console.log({ google })
+      const len = google.items.length;
+      for (let i = 0; i < len; i++) {
+        google.items[i] = google.items[i].snippet;
       }
-      res.end(JSON.stringify({ chatGPT: chatGPT, bingChat: bingChat }));
+      res.end(JSON.stringify({ chatGPT: chatGPT, google: google }));
     });
     req.on("error", (err) => {
       console.log(err);

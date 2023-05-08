@@ -1,12 +1,6 @@
-const chatGPTContent = document.getElementById("chatGPTContent");
-const bingChatContent = document.getElementById("bingChatContent");
-const enviarPreguntaBtn = document.getElementById("enviarPreguntaBtn");
-
 // make http request to server
 // when enviarPreguntaBtn is clicked
-enviarPreguntaBtn.addEventListener("click", function (event) {
-  var pregunta = preguntaPreguntonInput.value;
-  textoPregunta.innerHTML = pregunta;
+export function getHelp(question) {
   // make http request to server
   // when enviarPreguntaBtn is clicked
   chatGPTContent.innerHTML = "Cargando...";
@@ -18,12 +12,16 @@ enviarPreguntaBtn.addEventListener("click", function (event) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      pregunta: pregunta,
+      pregunta: question,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
+      const chatGPTContent = document.getElementById("chatGPTContent");
+      const bingChatContent = document.getElementById("bingChatContent");
       chatGPTContent.innerHTML = data.chatGPT;
-      bingChatContent.innerHTML = data.bingChat;
+      for (let i = 0; i < data.google.items.length; i++) {
+        bingChatContent.innerHTML += `<p>${data.google.items[i]}\n</p>`;
+      }
     });
-});
+};

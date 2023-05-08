@@ -1,21 +1,16 @@
 import { customFetch } from "./fetch.js";
 import { getGame } from "./getGame.js";
 import { getProfile } from "./getProfile.js";
-import { getWebSocket } from "./websocket.js";
+import { addPlayersLobby } from "./addPlayersLobby.js";
+import { CustomWebSocket } from "./websocket.js";
 
 window.addEventListener("load", async function () {
-  const url_string = window.location.href;
-  // split url string by ? and get the second element of the array
-  const parameters = url_string.split("?")[1];
-  console.log(url_string);
-  // split url by = and get the second element of the array
-  const game_id = parameters.split("=")[1];
-  const ws = getWebSocket(game_id);
+  const ws = new CustomWebSocket();
+  await ws.asyncConstructor();
+
   //   top lobby generator
   const topLobby = document.getElementById("topLobby");
-  const profile = await getProfile();
-  const game = await getGame(game_id);
-  if (profile.id === game.creator.id) {
+  if (ws.user_id === ws.game.creator.id) {
     const label = document.createElement("label");
     label.setAttribute("for", "cantidadRondas");
     label.classList.add(
@@ -57,9 +52,9 @@ window.addEventListener("load", async function () {
 
     // Create the start game button
     const startGameBtn = document.createElement("a");
-    startGameBtn.addEventListener("click", async function () {
+    startGameBtn.addEventListener("click", function () {
       const rounds = document.getElementById("cantidadRondas").value;
-      ws.send(JSON.stringify({ action: "start", rounds: Number(rounds) }));
+      ws.startGame(rounds);
     });
     startGameBtn.classList.add(
       "bg-blue-500",
@@ -105,4 +100,5 @@ window.addEventListener("load", async function () {
     div.textContent = "Esperando a que comience la partida";
     topLobby.appendChild(div);
   }
+  addPlayersLobby(ws.game);
 });

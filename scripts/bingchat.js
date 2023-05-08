@@ -1,4 +1,6 @@
 import { BingChat } from "../node_modules/bing-chat/build/index.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export async function BingChatAsk(message) {
     const api = new BingChat({

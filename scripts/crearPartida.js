@@ -5,7 +5,7 @@ let tiempoPregunta = document.getElementById("tiempoPregunta");
 let tiempoRespuesta = document.getElementById("tiempoRespuesta");
 
 let crearPartidaBtn = document.getElementById("crearPartidaBtn");
-
+console.log(crearPartidaBtn);
 crearPartidaBtn.onclick = async function () {
   const jsonData = JSON.stringify({
     name: nombrePartida.value,
@@ -23,11 +23,14 @@ crearPartidaBtn.onclick = async function () {
       body: jsonData,
     },
   };
-  console.log(newGame);
   customFetch(newGame.url, newGame.args)
     .then((response) => response.json())
     .then((data) => {
-        console.log(data)
-        location.href = "lobby.html?game_id=" + data.id;
+      console.log(data);
+      const url = new URL("/views/lobby.html", window.location);
+      url.searchParams.set("game_id", data.id);
+      window.location.href = url.href;
     });
 };
+
+// Export
