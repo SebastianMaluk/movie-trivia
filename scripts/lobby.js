@@ -9,7 +9,7 @@ window.addEventListener("load", async function () {
   await ws.setUp();
   console.log({ ws });
 
-  localStorage.setItem("questionTime", ws.game.quesquestion_time);
+  localStorage.setItem("questionTime", ws.game.question_time);
   localStorage.setItem("answerTime", ws.game.answer_time);
 
   //   top lobby generator
