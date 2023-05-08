@@ -6,10 +6,6 @@ export function drawGameStats(
   userId,
   nosyId
 ) {
-  console.log(rounds);
-  console.log(currentRound);
-  console.log(questionTime);
-  console.log(answerTime);
   const roundContainer = document.getElementById("rondas");
   const questionTimeContainer = document.getElementById("tiempoPreguntar");
   const answerTimeContainer = document.getElementById("tiempoResponder");
