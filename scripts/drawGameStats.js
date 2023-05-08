@@ -23,6 +23,7 @@ export function drawGameStats(
 
 export function questionCountdown() {
   const questionTimeContainer = document.getElementById("tiempoPreguntar");
+  questionTimeContainer.innerText = localStorage.getItem("questionTime");
   let value = parseInt(questionTimeContainer.innerText);
 
   if (Number.isInteger(value) && value > 0) {
@@ -42,6 +43,7 @@ export function answerCountdown() {
   const questionTimeContainer = document.getElementById("tiempoPreguntar");
   questionTimeContainer.innerText = 1;
   const answerTimeContainer = document.getElementById("tiempoResponder");
+  answerTimeContainer.innerText = localStorage.getItem("answerTime");
   let value = parseInt(answerTimeContainer.innerText);
 
   if (Number.isInteger(value) && value > 0) {
@@ -56,13 +58,15 @@ export function answerCountdown() {
     }, 1000);
   }
 }
-// TODO: Evaluation countdown
-export function qualifyCountdown() {
+
+export function qualifyCountdown(time) {
   const qualifyTimeContainer = document.getElementById("tiempoCalificar");
+  qualifyTimeContainer = time;
   let value = parseInt(qualifyTimeContainer.innerText);
 
   if (Number.isInteger(value) && value > 0) {
     const intervalId = setInterval(() => {
+      value = parseInt(QualifyTimeContainer.innerText);
       value -= 1;
       qualifyTimeContainer.innerText = value;
 

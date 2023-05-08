@@ -133,11 +133,11 @@ export class CustomWebSocket {
             data.grade,
             this.sendReview.bind(this)
           );
-          qualifyCountdown();
+          qualifyCountdown(30);
         }
       } else if (data.type === "answer_time_ended") {
         if (this.user_id === this.nosy_id) {
-          qualifyCountdown();
+          qualifyCountdown(90);
         }
       }
     };
