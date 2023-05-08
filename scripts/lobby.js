@@ -6,11 +6,7 @@ import { CustomWebSocket } from "./websocket.js";
 
 window.addEventListener("load", async function () {
   const ws = new CustomWebSocket();
-  await ws.setUp();
-  console.log({ ws });
-
-  localStorage.setItem("questionTime", ws.game.question_time);
-  localStorage.setItem("answerTime", ws.game.answer_time);
+  await ws.asyncConstructor();
 
   //   top lobby generator
   const topLobby = document.getElementById("topLobby");
