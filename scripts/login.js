@@ -5,7 +5,7 @@ var loginBtn = document.getElementById("loginBtn");
 window.onload = function onInitialized() {
   loginBtn.onclick = function () {
     var jsonData = JSON.stringify({
-      username: "G18_" + username.value,
+      username: username.value,
       password: password.value,
     });
 
