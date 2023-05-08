@@ -4,6 +4,8 @@ export function drawRoundReview(correct_answer, graded_answer, grade, sendReview
   const gradedAnswerText = document.getElementById("gradedAnswerText");
   const gradeText = document.getElementById("preguntonGradeText");
 
+  const questionContainer = document.getElementById("questionContainer");
+
   roundReviewAnswerContainer.classList.remove("hidden");
   correctAnswerText.innerText = correct_answer;
   gradedAnswerText.innerText = graded_answer;
@@ -19,6 +21,7 @@ export function drawRoundReview(correct_answer, graded_answer, grade, sendReview
   goodEvaluationBtn.addEventListener("click", () => {
     sendReview(true);
     roundReviewAnswerContainer.classList.add("hidden");
+    questionContainer.classList.add("hidden");
   });
 
 
@@ -26,6 +29,8 @@ export function drawRoundReview(correct_answer, graded_answer, grade, sendReview
   badEvaluationBtn.addEventListener("click", () => {
     sendReview(false);
     roundReviewAnswerContainer.classList.add("hidden");
+    questionContainer.classList.add("hidden");
+
   });
 
   // hide player answer keeping question
